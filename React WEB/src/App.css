@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;500&display=swap');
+
+/* Zerando pré-estilizações */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    font-weight: 500;
+    -webkit-text-fill-color: black;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+body {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%; */
+    background-color: #fae8b8;
+    
+}

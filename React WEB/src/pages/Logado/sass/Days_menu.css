@@ -1,0 +1,100 @@
+.select-box1 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 290px;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.select-box1 .options-container {
+  display: flex;
+  flex-direction: column;
+  background: black;
+  color: #f5f6fa;
+  width: 50%;
+  border-radius: 8px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  order: 1;
+  transition: all 0.4s;
+}
+
+.select-box1 .selected1 {
+  display: flex;
+  top: 3px;
+  padding-left: 10px;
+  background: #2196F3;
+  width: 100%;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  color: #f5f6fa;
+  position: relative;
+  transition: 0.5s;
+  order: 0;
+}
+
+.select-box1 .selected1:hover {
+  background-color: #1976D2;
+}
+
+.select-box1 .selected1::after {
+  content: "";
+  background: url("../../../../Public/Imagens/down-arrow2-svgrepo-com (1).svg");
+  background-size: contain;
+  position: absolute;
+  font-size: 30px;
+  height: 35px;
+  top: 5px;
+  width: 35px;
+  right: 5px;
+  transition: all 0.4s;
+}
+
+.select-box1 .options-container.active {
+  max-height: 240px;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+.select-box1 .options-container.active + .selected1::after {
+  transform: rotateX(180deg);
+}
+
+.select-box1 .options-container::-webkit-scrollbar {
+  width: 8px;
+  background: black;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box1 .options-container::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box1 .options-container .option1,
+.select-box1 .selected1 {
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.select-box1 .options-container .option1:hover {
+  background: #414b57;
+}
+
+.select-box1 label {
+  cursor: pointer;
+}
+
+.select-box1 .options-container .option1 .radio {
+  display: none;
+}
+
+.day.select {
+  position: absolute;
+  top: 21%;
+  left: 5%;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+}/*# sourceMappingURL=Days_menu.css.map */

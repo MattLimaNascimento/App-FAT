@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import '../pages/Logado/sass/Use_img.scss'
+import image from '../../api/Img/5b459ec0-8763-4dbe-b425-a152a23ce44a.png';
+import {MdLogout} from 'react-icons/md'
+
+const User_Imag = () => {
+    const [activeUserInfos, setactiveUserInfos] = useState(false);
+    const infos = [
+        {id:"Caronas-confirmadas", className1:"fa-solid fa-user-check", a: 'Caronas Confirmadas', className2: 'sinal2', id2: 'sinal2' },
+        {id:"Carona_ok", className1:"fa fa-car-side", a: 'Carona Marcada', className2: 'sinal', id2: 'sinal' },
+    ]
+    return (
+        <div className="container">
+            <div className="action_user">
+                <div onClick={() => setactiveUserInfos(!activeUserInfos)} className="profile_user" id="profile">
+                    <img src={image} alt="profile-img"/>
+                </div>
+                <div className={`menu_user ${activeUserInfos? 'active':''}`}>
+                    <h3>Matheus<br /><span>matheus.manasses.30@gmail.com</span></h3>
+                    <ul>
+                        <li id="Caronas-confirmadas">
+                            <i className="fa-solid fa-user-check"></i>
+                            <a href="#">Caronas Confirmadas</a>
+                            <div className="sinal2" id="sinal2"></div>
+                        </li>
+                        <li id="Carona_ok">
+                            <i className="fa fa-car-side"></i>
+                            <a href="#" id="Vaga_registrada">Carona Marcada</a>
+                            <div className="sinal" id="sinal"></div>
+                        </li>
+                        <li id="logout-btn">
+                            <i className="fa-solid fa-right-from-bracket"></i>
+                            <a href="#">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default User_Imag;
