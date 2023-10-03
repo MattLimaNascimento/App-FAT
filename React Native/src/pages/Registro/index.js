@@ -55,8 +55,7 @@ const RegisterScreen = () => {
       setAlertMessage('Você precisa aceitar os termos e condições.');
       setShowAlert(true);
     } else {
-        fetchData();
-      
+      fetchData();
       setAlertMessage('Registro bem-sucedido. Você pode fazer login agora.');
       setShowAlert(true);
     }
@@ -64,14 +63,14 @@ const RegisterScreen = () => {
 
   const fetchData = async () => {
     try {
-      const apiUrl = 'http://127.0.0.1:8000/rides/api/profiles/';
+      const apiUrl = 'http://10.0.2.2:8000/rides/api/profiles/';
       
       const userData = {
         senha: password,
         nome: "Joao",
         email: email,
         diretorio: image,
-        user: 4,
+        user: 1,
         placa_carro: "",
         cnh: null,
       };      

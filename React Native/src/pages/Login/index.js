@@ -52,7 +52,7 @@ const LoginScreen = () => {
         body: JSON.stringify(loginData), // Convertendo os dados para JSON
       };
 
-      const response = await fetch('http://127.0.0.1:8000/rides/login/', requestOptions);
+      const response = await fetch('http://10.0.2.2:8000/rides/login/', requestOptions);
 
       if (response.status === 200) {
         // Login bem-sucedido

@@ -19,7 +19,7 @@
   width: 300px;
 }
 
-.container.anuncios_caronas {
+.containerAnuncios_caronas {
   position: absolute;
   width: 100%;
   top: 75%;
@@ -157,4 +157,4 @@
 
 .swiper-pagination-bullet-active {
   background-color: #2196F3;
-}/*# sourceMappingURL=anuncios.css.map */
+}/*# sourceMappingURL=anuncios.module.css.map */

@@ -25,7 +25,7 @@ const Home = () => {
             "senha": senha,
             "cnh": cnh,
             "placa_carro": placa_carro,
-            "user": 2
+            "user": 1
         };
         axios.post('http://127.0.0.1:8000/rides/api/profiles/', profile_new, {
             headers: {
