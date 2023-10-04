@@ -20,10 +20,11 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
+from rides.api.views import get_routes
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',get_routes,name='routes'),
     path('rides/', include('rides.urls')),
     path('accounts/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls')),

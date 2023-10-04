@@ -3,10 +3,9 @@ from .views import (RidesAPIView,
                     RideDetailAPIView,
                     ProfileDetailAPIView,
                     ProfilesAPIView,
-                    UserDetailAPIView
+                    UserDetailAPIView,
                     )
-
-
+                 
 # create your routes here !
 
 urlpatterns = [

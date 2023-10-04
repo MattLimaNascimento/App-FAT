@@ -9,7 +9,7 @@ from accounts.models import Profile
 
 class Ride(mo.Model):
     class Modalidade(mo.TextChoices):
-        DEFAULT = 'DEFAULT', _('Padrão')
+        CARONA = 'CARONA', _('CARONA')
         UBER = 'UBER', _('Uber')
     
     class Veiculo(mo.TextChoices):
@@ -26,4 +26,4 @@ class Ride(mo.Model):
     preço = mo.IntegerField(default= 4.00)
     veiculo = mo.TextField(max_length=10,choices=Veiculo.choices,default='Veiculo.CARRO')
     modalidade = mo.CharField(max_length=12, choices=Modalidade.choices,
-                              default='Modalidade.DEFAULT')
+                              default='Modalidade.CARONA')

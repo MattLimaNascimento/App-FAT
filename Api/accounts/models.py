@@ -18,7 +18,7 @@ class Profile(mo.Model):
     nome = mo.CharField(max_length=20)
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
-    cnh = mo.IntegerField(blank=True, null=True)
+    cnh = mo.IntegerField(null=True)
     diretorio = mo. ImageField(upload_to=None, height_field=None,
                                width_field=None,  blank=False,
                                default='/rides/static/img')

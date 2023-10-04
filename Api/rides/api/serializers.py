@@ -36,9 +36,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class RidesSerializer(serializers.ModelSerializer):
-    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False)
+    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False,read_only=True)
     passageiros_id = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=User.objects.all(),source='passageiros')
-
     class Meta:
         model = Ride
         fields = ['motorista','passageiros','passageiros_id','data_publicaçao',
@@ -57,8 +56,7 @@ class RidesSerializer(serializers.ModelSerializer):
             setattr(instance, atributo, valor)
         instance.save()
         return instance
-   
-
+    
     def get_nome_passageiros(self, obj):
         return obj.nome.passageiros
 
