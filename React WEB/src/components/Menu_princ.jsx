@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../pages/Logado/sass/Nav_bar.scss';
+import './SCSS/Menu_princ.css';
 
 const Menu_Princ = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -106,7 +106,7 @@ const Menu_Princ = () => {
                         <div className="menu__icon">{item.icon}</div>
                         <strong className={`menu__text ${activeTab === index ? 'active' : ''}`}>{item.text}</strong>
                     </button>
-                ))};
+                ))}
         </menu>
     );
 };

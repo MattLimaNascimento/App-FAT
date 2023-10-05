@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "./sass/home.css";
 import axios from "axios";
 import Logo from '../../components/logo';
 import Header from '../../components/Header';
@@ -56,7 +55,8 @@ const Home = () => {
 
 
     return (
-        <div className="conteudo">
+        
+        <>
             <Header>
                 <B_car_fat/>
                 <B_Entrar Pop_up={pop_pup} />
@@ -65,7 +65,7 @@ const Home = () => {
                 <Logo/>
                 <Modal Log_func={login} isOpen={openModal} SetModal={setOpenModal} Reg_func={registro} />
             </main>
-        </div>
+        </>
     );
 }
 

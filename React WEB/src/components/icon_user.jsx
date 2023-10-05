@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import '../pages/Logado/sass/Use_img.scss'
 import image from '../../api/Img/5b459ec0-8763-4dbe-b425-a152a23ce44a.png';
-import {MdLogout} from 'react-icons/md'
+import style from './SCSS/User_img.module.css';
 
 const User_Imag = () => {
     const [activeUserInfos, setactiveUserInfos] = useState(false);
+    const userStyle = {
+        visibility: activeUserInfos? 'visible':'hidden',
+        opacity: activeUserInfos? 1:0
+    }
     const infos = [
-        {id:"Caronas-confirmadas", className1:"fa-solid fa-user-check", a: 'Caronas Confirmadas', className2: 'sinal2', id2: 'sinal2' },
+        { id: "Caronas_confirmadas", className1: "fa-solid fa-user-check", a: 'Caronas Confirmadas', className2: 'sinal2', id2: 'sinal2' },
         {id:"Carona_ok", className1:"fa fa-car-side", a: 'Carona Marcada', className2: 'sinal', id2: 'sinal' },
     ]
     return (
         <div className="container">
-            <div className="action_user">
-                <div onClick={() => setactiveUserInfos(!activeUserInfos)} className="profile_user" id="profile">
+            <div className={style.action_user}>
+                <div onClick={() => setactiveUserInfos(!activeUserInfos)} className={style.profile_user} id="profile">
                     <img src={image} alt="profile-img"/>
                 </div>
-                <div className={`menu_user ${activeUserInfos? 'active':''}`}>
+                <div className={style.menu_user} style={userStyle}>
                     <h3>Matheus<br /><span>matheus.manasses.30@gmail.com</span></h3>
                     <ul>
                         <li id="Caronas-confirmadas">

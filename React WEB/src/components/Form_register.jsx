@@ -1,5 +1,5 @@
 import React from 'react';
-import '../pages/Logado/sass/wrapper.scss';
+// import '../pages/Logado/sass/wrapper.scss';
 import { CgClose } from 'react-icons/cg';
 import FormGeneric from './form';
 const FormRegister_Generic = ({ setRegister, Itson }) => {

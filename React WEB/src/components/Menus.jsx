@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../pages/Logado/sass/menus.scss';
+import './SCSS/menus.scss';
 
 const Menus = () => {
     const [Change, setChange] = useState('Home');

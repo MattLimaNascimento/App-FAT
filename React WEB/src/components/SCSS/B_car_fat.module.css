@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;500&display=swap");
+.carona_fat {
+  display: flex;
+  padding-right: 10px;
+  font-family: "Inter", sans-serif;
+}
+
+.Btn_refresh {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: #2196F3;
+  color: aliceblue;
+  font-size: xx-large;
+  cursor: pointer;
+}
+
+.logo_carrinho {
+  display: flex;
+  width: 32px;
+  height: 32px;
+}/*# sourceMappingURL=B_car_fat.module.css.map */

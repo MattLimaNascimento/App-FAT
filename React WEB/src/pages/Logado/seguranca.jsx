@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-const Seguranca = () => {
-    return ( 
+// const Seguranca = () => {
+//     return ( 
         
-    );
-}
+//     );
+// }
 
-export default Seguranca;
+// export default Seguranca;

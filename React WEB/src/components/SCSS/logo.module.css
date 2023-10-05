@@ -1,0 +1,10 @@
+.logo_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text_1 {
+  padding-top: 10px;
+}/*# sourceMappingURL=logo.module.css.map */

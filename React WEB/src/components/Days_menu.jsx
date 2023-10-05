@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../pages/Logado/sass/Days_menu.scss';
+// import '../pages/Logado/sass/Days_menu.scss';
 
 const Days_menu = () => {
     const [activeButton, setactiveButton] = useState(false);

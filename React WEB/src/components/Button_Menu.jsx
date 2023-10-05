@@ -1,6 +1,6 @@
 import React from 'react';
 import Button_p from './button';
-import '../pages/Logado/sass/Button_menu.scss'
+// import style from './SCSS/Button_menu.module.scss'
 
 const Button_Menu = ({ FuncRegister }) => {
     const handleClick = () => {
