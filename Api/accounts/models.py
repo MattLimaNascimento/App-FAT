@@ -2,8 +2,12 @@ from django.db import models as mo
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
+
 # Create your models here.
 
+
+def upload_path(instance, filename):
+    return f'static/img/{instance.user_id}/{filename}'
 
 class Profile(mo.Model):
     class Genero(mo.TextChoices):
@@ -19,9 +23,8 @@ class Profile(mo.Model):
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
     cnh = mo.IntegerField(null=True)
-    diretorio = mo. ImageField(upload_to=None, height_field=None,
-                               width_field=None,  blank=False,
-                               default='/rides/static/img')
+    diretorio = mo. ImageField(blank=False,
+                               upload_to=upload_path)
     senha = mo.CharField(max_length=50, default='*********')
     # gender = mo.CharField(
     #     max_length=12, choices=Genero.choices, default='Genero.M')
