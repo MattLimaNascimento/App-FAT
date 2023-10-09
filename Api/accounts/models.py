@@ -6,8 +6,10 @@ from django.utils.translation import gettext as _
 # Create your models here.
 
 
-def upload_path(instance):
-    return f'Profile_diretorio/{instance.user_id}'
+
+def upload_path(instance, filename):
+    return f'static/img/{instance.user_id}/{filename}'
+
 
 class Profile(mo.Model):
     class Genero(mo.TextChoices):
