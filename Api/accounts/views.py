@@ -66,3 +66,5 @@ def atualizar_perfil_view(request):
 
         # Redireciona o usuário para a mesma página
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    
