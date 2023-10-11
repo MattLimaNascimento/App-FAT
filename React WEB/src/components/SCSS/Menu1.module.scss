@@ -1,0 +1,17 @@
+.header {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.menu1 {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    transition: transform 1s ease, height .2s ease;
+}

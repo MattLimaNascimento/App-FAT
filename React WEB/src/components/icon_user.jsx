@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import image from '../../api/Img/5b459ec0-8763-4dbe-b425-a152a23ce44a.png';
+import image from '../../Public/Imagens/profile-pic.png';
 import style from './SCSS/User_img.module.css';
 
 const User_Imag = () => {
@@ -16,7 +16,7 @@ const User_Imag = () => {
         <div className="container">
             <div className={style.action_user}>
                 <div onClick={() => setactiveUserInfos(!activeUserInfos)} className={style.profile_user} id="profile">
-                    <img src={image} alt="profile-img"/>
+                    <img src={image} alt="profile-img" />
                 </div>
                 <div className={style.menu_user} style={userStyle}>
                     <h3>Matheus<br /><span>matheus.manasses.30@gmail.com</span></h3>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SCSS/Menu_princ.css';
 
-const Menu_Princ = () => {
+const Menu_Princ = ({ tela }) => {
     const [activeTab, setActiveTab] = useState(0);
     useEffect(() => {
         const button = document.getElementById('tela1');
@@ -9,6 +9,7 @@ const Menu_Princ = () => {
         setLineWidth(text, button);
     })
     const handleTabClick = (index, id) => {
+        id == 'tela2' ? tela(true): tela(false);
         const text = document.getElementById(id).querySelector(".menu__text");
         setLineWidth(text, document.getElementById(id));
         setActiveTab(index);
