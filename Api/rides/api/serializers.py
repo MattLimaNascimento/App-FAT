@@ -21,6 +21,16 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user','nome','email','diretorio','placa_carro','cnh','senha','senha2']
+
+        def validate_cnh(self,cnh):
+            if len(cnh)!=11:
+                raise serializers.ValidationError({'cnh':'CNH deve ter 11 dígitos!'})
+            return cnh
+        
+        def validate_placa_carro(self,placa_carro):
+            if len(placa_carro)!=8 :
+                raise serializers.ValidationError({'placa_carro':'Placa do carro deve ter 8 dígitos!'})
+            return placa_carro
         
         def save(self):
             user = User()

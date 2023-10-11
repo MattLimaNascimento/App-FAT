@@ -1,13 +1,13 @@
 from django.db import models as mo
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-
-
-# Create your models here.
+import os
 
 
 def upload_path(instance, filename):
-    return f'static/img/{instance.user_id}/{filename}'
+    base_filename, file_extension = os.path.splitext(filename)
+    return f'static/img/{base_filename}{file_extension}'
+
 
 class Profile(mo.Model):
     class Genero(mo.TextChoices):
