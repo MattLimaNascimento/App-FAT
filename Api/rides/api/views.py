@@ -3,11 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework.generics import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets,filters
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.decorators import api_view
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 from accounts.models import Profile
@@ -124,6 +125,8 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
+    ordering_fields = ['nome']
 
     def post(self, request,):
         data = request.data
