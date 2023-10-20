@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.decorators import api_view
-
+from rest_framework import serializers
 
 from accounts.models import Profile
 from rides.models import Ride
@@ -60,10 +60,6 @@ def get_routes(request):
         
     ]
     return Response(routes)
-
-
-
-
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
@@ -127,6 +123,9 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def post(self, request,):
         data = request.data
+        if len(data['cnh']) != 11:
+            raise serializers.ValidationError("O campo deve ter exatamente 11 caracteres.")
+
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
@@ -166,7 +165,6 @@ class ProfileDetailAPIView(
 """
 API (v2)
 """
-
 
 class RidesViewSet(viewsets.ModelViewSet):
     queryset = Ride.objects.all()

@@ -35,21 +35,43 @@ const Home = () => {
     }
 
     const login = async (email, senha) => {
-        const { data } = await axios.get("http://127.0.0.1:8000/rides/api/profiles/");
-
-        const user = data.results.find(task => task.email === email && task.senha === senha);
-        let dados = null
-        user ? (
-            dados = {
-                email: user.email,
-                gender: user.gender,
-                idade: user.idade,
-                matricula: user.matricula,
-                nome: user.nome
+        const profile_new = {
+            "nome": 'Matheus',
+            "password": 234564783,
+            // "nome": usuario,
+            // "diretorio": foto,
+            // "email": email,
+            // "senha": senha,
+            // "cnh": cnh,
+            // "placa_carro": placa_carro,
+            "user": 1
+        };
+        axios.post('http://127.0.0.1:8000/accounts/login/', profile_new, {
+            headers: {
+                'Content-Type': 'application/json'
             },
-            setDadosUser(dados_user),
-            history('/logado')
-        ) : alert('Credenciais inválidas. Por favor, tente novamente.');
+            withCredentials: true
+        }).then((res) => {
+            alert(res);
+        }).catch((e) => {
+            alert(e);
+        })
+
+        // const { data } = await axios.get("http://127.0.0.1:8000/rides/api/profiles/");
+
+        // const user = data.results.find(task => task.email === email && task.senha === senha);
+        // let dados = null
+        // user ? (
+        //     dados = {
+        //         email: user.email,
+        //         gender: user.gender,
+        //         idade: user.idade,
+        //         matricula: user.matricula,
+        //         nome: user.nome
+        //     },
+        //     setDadosUser(dados_user),
+        //     history('/logado')
+        // ) : alert('Credenciais inválidas. Por favor, tente novamente.');
     };
 
 

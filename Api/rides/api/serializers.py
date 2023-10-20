@@ -20,7 +20,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['user','nome','email','diretorio','placa_carro','cnh','senha','senha2']
+        fields = "__all__"
+        # fields = ['user','nome','email','diretorio','placa_carro','cnh','senha','senha2']
         
         def save(self):
             user = User()

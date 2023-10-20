@@ -60,9 +60,25 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:3000",
     
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_HTTPONLY = True
+ 
+# PROD ONLY
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+ 
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -151,42 +167,40 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static-root')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ],
 
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # numeros de objetos por pagina
-    'PAGE_SIZE': 5,
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     # numeros de objetos por pagina
+#     'PAGE_SIZE': 5,
 
-    'DEFAULT_THROTTLE_CLASSES': (
-        # 'rest_framework.throttling.UserRateThrottle',
-        # 'rest_framework.throttling.AnonRateThrottle'
-    ),
-    # 'DEFAULT_THROTTLE_RATES': { 'Anon': '5/minute','User': '10/minute' },
+#     'DEFAULT_THROTTLE_CLASSES': (
+#         # 'rest_framework.throttling.UserRateThrottle',
+#         # 'rest_framework.throttling.AnonRateThrottle'
+#     ),
+#     # 'DEFAULT_THROTTLE_RATES': { 'Anon': '5/minute','User': '10/minute' },
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # autentificação para iniciar sessão:
-        # 'rest_framework.authentication.SessionAuthentication',
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         # autentificação para iniciar sessão:
+#         # 'rest_framework.authentication.SessionAuthentication',
 
-        # autentificação via Token:
-        # 'rest_framework.authentication.TokenAuthentication',
-    ),
+#         # autentificação via Token:
+#         # 'rest_framework.authentication.TokenAuthentication',
+#     ),
        
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-
-
-}
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+# }
 
 # jwt access TOKEN time configuration
 
 SIMPLE_JWT ={
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'REFRESH_TOKEN_LIFETIME':timedelta(days=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
     'ROTATE_REFRESH_TOKENS':True
 }
