@@ -83,9 +83,8 @@ class RidesAPIView(generics.ListCreateAPIView):
     """
     serializer_class = RidesSerializer
     queryset = Ride.objects.all()
-    filter_backends = [DjangoFilterBackend,filters.OrderingFilter,filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     search_fields = ['motorista','passageiros']
-    ordering_fields = ['motorista','passageiros']
 
     # listar Rides  -> request GET
 
@@ -111,11 +110,11 @@ class RideDetailAPIView(generics.GenericAPIView,
 
     lookup_field = 'pk'
 
-    def delete(self, request, *args, **Kwargs):
-        return self.destroy(request, *args, **Kwargs)
+    def get(self,request,*args, **kwargs):
+        return self.retrieve(request,*args, **kwargs)
 
-    def get(self, request, *args, **Kwargs):
-        return self.retrieve(request, *args, **Kwargs)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
@@ -166,13 +165,14 @@ class ProfileDetailAPIView(
 
     lookup_field = 'pk'
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **Kwargs):
+    def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **Kwargs)
 
 

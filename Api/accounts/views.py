@@ -13,7 +13,7 @@ def cadastro_view(request):
             user = User.objects.get(request.POST['username'])
         except:  # se nao existir usuario, cria usuario puxando dados inseridos no frontend !
             user = User.objects.create_user(
-                request.POST['username'], password=request.POST['password'], email=request.POST['email'])
+                request.POST['username'], password=request.POST['password'],email=request.POST['email'],diretorio=request.POST['diretorio'])
             auth.login(request, user)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
