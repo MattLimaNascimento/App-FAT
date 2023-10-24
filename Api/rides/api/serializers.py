@@ -2,7 +2,8 @@ from accounts.models import Profile
 from rides.models import Ride
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from accounts.validators import *
+from .validators import cnh_valido
+
 
 
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
@@ -21,15 +22,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['user','nome','email','diretorio','placa_carro','cnh','senha','senha2']
-
+        fields = '__all__'
+        
     def validate(self,data):
-        if cnh_valido(data['cnh']):
-            raise serializers.ValidationError('CNH deve ser válida!')
+        if not cnh_valido(data['cnh']):
+            raise serializers.ValidationError('Cnh deve conter 9 digitos!')
         return data
-        
     
-        
     def save(self):
         user = User()
         user.email = self.validated_data["email"] # validação do campo 'email'
@@ -41,6 +40,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         user.set_password(senha) #criptografar senha 
         user.save() # senha criptografada salva
         return user # retornar user com senha criptografada
+    
 
 
 class RidesSerializer(serializers.ModelSerializer):

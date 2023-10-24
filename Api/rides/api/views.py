@@ -11,10 +11,13 @@ from rest_framework.decorators import api_view
 from django_filters.rest_framework import DjangoFilterBackend
 
 
+
 from accounts.models import Profile
 from rides.models import Ride
 from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
 from django.contrib.auth.models import User
+
+
 """
 API de Rides (v1)
 """
@@ -78,8 +81,11 @@ class RidesAPIView(generics.ListCreateAPIView):
 }
 
     """
-    queryset = Ride.objects.all()
     serializer_class = RidesSerializer
+    queryset = Ride.objects.all()
+    filter_backends = [DjangoFilterBackend,filters.OrderingFilter,filters.SearchFilter]
+    search_fields = ['motorista','passageiros']
+    ordering_fields = ['motorista','passageiros']
 
     # listar Rides  -> request GET
 
@@ -123,9 +129,10 @@ API de Perfis (v1)
 
 class ProfilesAPIView(generics.ListCreateAPIView):
 
-    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
+    queryset = Profile.objects.all()
+    filter_backends = [DjangoFilterBackend,filters.OrderingFilter,filters.SearchFilter]
+    search_fields = ['nome','email']
     ordering_fields = ['nome']
 
     def post(self, request,):
@@ -144,6 +151,9 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+    
+       
+        
 
 
 class ProfileDetailAPIView(
