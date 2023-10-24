@@ -213,10 +213,10 @@ DJOSER = {
         'user_create': 'rides.api.serializers.ProfileSerializer',
     },
     'EMAIL': {
-        'activation': 'account.email.ActivationEmail',
-        'confirmation': 'account.email.ConfirmationEmail',
-        'password_reset': 'account.email.PasswordResetEmail',
-        'password_changed_confirmation': 'account.email.PasswordChangedConfirmationEmail',
+        'activation': 'accounts.email.ActivationEmail',
+        'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
     },
 
 }
