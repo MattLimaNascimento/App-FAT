@@ -135,12 +135,14 @@ class ProfilesAPIView(generics.ListCreateAPIView):
     search_fields = ['nome','email']
     ordering_fields = ['nome']
 
-    def post(self, request,):
+    def validate(self, request,):
         data = request.data
         if not cnh_valido(data['cnh']):
             raise serializers.ValidationError(' CNH deve ser válido ! ')
         return data
-
+    
+    def post(self,request):
+        data = request.data
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
