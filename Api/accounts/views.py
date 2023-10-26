@@ -35,8 +35,6 @@ def cadastro_driver_view(request):
             
             
 
-
-
 def login_view(request):
     if request.method == 'POST':
         nome = request.POST['nome']

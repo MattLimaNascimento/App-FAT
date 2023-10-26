@@ -182,10 +182,10 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # autentificação para iniciar sessão:
-        # 'rest_framework.authentication.SessionAuthentication',
+         'rest_framework.authentication.SessionAuthentication',
 
         # autentificação via Token:
-        #'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
        
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -218,7 +218,6 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-    'TOKEN_MODEL': None,       # To Delete User Must Set it to None
     'SERIALIZER':{
         'user_create': 'rides.api.serializers.ProfileSerializer',
     },
