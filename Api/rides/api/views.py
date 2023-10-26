@@ -9,13 +9,14 @@ from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.decorators import api_view
 from django_filters.rest_framework import DjangoFilterBackend
-
-
+from rest_framework import serializers
 
 from accounts.models import Profile
 from rides.models import Ride
 from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
 from django.contrib.auth.models import User
+from .validators import cnh_valido
+
 
 
 """
@@ -136,6 +137,10 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def post(self, request,):
         data = request.data
+        if not cnh_valido(data['cnh']):
+            raise serializers.ValidationError(' CNH deve ser válido ! ')
+        return data
+
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],

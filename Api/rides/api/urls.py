@@ -15,6 +15,7 @@ urlpatterns = [
     path('profiles/<int:pk>/', ProfileDetailAPIView.as_view(), name='profile'),
     path('token/user-detail/',UserDetailAPIView.as_view(),name='user-detail'),
     path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt'))
+    path('auth/', include('djoser.urls.jwt')),
+    path('auth/', include('djoser.urls.authtoken'))
 
 ]

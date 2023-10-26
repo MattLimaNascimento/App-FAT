@@ -24,10 +24,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['user','nome','email','ativo','placa_carro','cnh','diretorio','senha','senha2']
         
-    def validate(self,data):
-        if not cnh_valido(data['cnh']):
-            raise serializers.ValidationError('Cnh deve conter 9 digitos!')
-        return data
+   # def validate(self,data):
+    #    if not cnh_valido(data['cnh']):
+    #        raise serializers.ValidationError('Cnh deve conter 9 digitos!')
+    #    return data
     
     def save(self):
         user = User()
