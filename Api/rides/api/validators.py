@@ -1,5 +1,4 @@
 from validate_docbr import CNH
-from rest_framework import serializers
 
 def cnh_valido(numero_cnh):
   # validar CNH

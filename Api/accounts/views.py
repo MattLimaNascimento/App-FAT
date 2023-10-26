@@ -18,6 +18,24 @@ def cadastro_view(request):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def cadastro_driver_view(request):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(request.POST['username'])
+        except:
+            user = User.objects.create_user(request.POST['username'],
+                                            password=request.POST['password'],
+                                            email=request.POST['email'],
+                                            diretorio=request.POST['diretorio'],
+                                            cnh=request.POST['cnh'],
+                                            placa_carro=request.POST['placa_carro'])
+            auth.login(request,user)
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            
+            
+
+
 
 def login_view(request):
     if request.method == 'POST':
