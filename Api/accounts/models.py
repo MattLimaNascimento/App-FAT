@@ -38,7 +38,7 @@ class Profile(mo.Model):
     ativo = mo.BooleanField(default=True)
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
-    cnh = mo.IntegerField(null=True)
+    cnh = mo.CharField(blank=True,max_length=11)
     diretorio = mo. ImageField(blank=False,
                                upload_to=upload_path)
     senha = mo.CharField(max_length=50, default='*********')
