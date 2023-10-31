@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Logo from '../../components/logo';
 import Header from '../../components/Header';
@@ -10,81 +10,89 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const history = useNavigate();
     const [openModal, setOpenModal] = useState(false);
-    const [dados_user, setDadosUser] = useState({});
+    useEffect(() => {
+        const conteudoChave = sessionStorage.getItem('auth_token');
+    
+        if (conteudoChave) {
+          history('/logado'); // Substitua pelo caminho real da sua tela de logado
+        }
+      }, []); // O array de dependências está vazio, então este efeito será executado apenas uma vez ao montar o componente
 
     const pop_pup = () => {
         setOpenModal(true);
     };
 
-    const registro = async (foto, email, senha, usuario, cnh, placa_carro) => {
-        const profile_new = {
-            "nome": usuario,
-            "diretorio": foto,
-            "email": email,
-            "senha": senha,
-            "cnh": cnh,
-            "placa_carro": placa_carro,
-            "user": 1
-        };
-        axios.post('http://127.0.0.1:8000/rides/api/profiles/', profile_new, {
+    const registro = async (diretorio, email, password, re_password, name, cnh, placa_carro) => {
+        const Data = [diretorio, email, password, re_password, name, cnh, placa_carro];
+        const Data2 = ['diretorio', 'email', 'password', 're_password', 'name', 'cnh', 'placa_carro'];
+        const formData = new FormData();
+
+        for (let i = 0; i < Data.length; i++) {
+            formData.append(Data2[i], Data[i]);
+        }
+
+
+        const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data',
             }
-        })
-            // .then((result) => console.log(result));
+        };
+
+
+        axios.post('http://127.0.0.1:8000/api/auth/users/', formData, config)
+            .then((result) => alert('Email de ativação de conta enviado com sucesso! \nPara ativar sua conta, verifique seu email.'))
+            .catch((error) => console.error(error));
     }
 
     const login = async (email, senha) => {
-        const profile_new = {
-            "nome": 'Matheus',
-            "password": 234564783,
-            // "nome": usuario,
-            // "diretorio": foto,
-            // "email": email,
-            // "senha": senha,
-            // "cnh": cnh,
-            // "placa_carro": placa_carro,
-            "user": 1
-        };
-        axios.post('http://127.0.0.1:8000/accounts/login/', profile_new, {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', senha);
+
+        const config = {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            withCredentials: true
-        }).then((res) => {
-            alert(res);
-        }).catch((e) => {
-            alert(e);
-        })
+                'Content-Type': 'multipart/form-data',
+            }
+        };
 
-        // const { data } = await axios.get("http://127.0.0.1:8000/rides/api/profiles/");
 
-        // const user = data.results.find(task => task.email === email && task.senha === senha);
-        // let dados = null
-        // user ? (
-        //     dados = {
-        //         email: user.email,
-        //         gender: user.gender,
-        //         idade: user.idade,
-        //         matricula: user.matricula,
-        //         nome: user.nome
-        //     },
-        //     setDadosUser(dados_user),
-        //     history('/logado')
-        // ) : alert('Credenciais inválidas. Por favor, tente novamente.');
+        await axios.post('http://127.0.0.1:8000/api/auth/token/login/', formData, config)
+            .then(async (res) => {
+                sessionStorage.setItem('auth_token', res.data.auth_token);
+                await axios.get('http://127.0.0.1:8000/api/auth/users/me/', {
+                    headers: {
+                        Authorization: `Token ${res.data.auth_token}`
+                    }
+                })
+                    .then((res) => {
+                        // Percorrendo as chaves do objeto
+                        for (const chave in res.data) {
+                            if (res.data.hasOwnProperty(chave)) {
+                                const conteudo = res.data[chave];
+
+                                // Armazenando no sessionStorage
+                                sessionStorage.setItem(chave, conteudo);
+                            }
+                        }
+                        history('/logado');
+                    })
+                    .catch((e) => console.error(e))
+            }).catch((e) => {
+                console.error(e);
+            })
     };
 
 
 
     return (
-        
+
         <>
             <Header>
-                <B_car_fat/>
+                <B_car_fat />
                 <B_Entrar Pop_up={pop_pup} />
             </Header>
             <main>
-                <Logo/>
+                <Logo />
                 <Modal Log_func={login} isOpen={openModal} SetModal={setOpenModal} Reg_func={registro} />
             </main>
         </>

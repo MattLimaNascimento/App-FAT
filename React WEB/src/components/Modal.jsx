@@ -11,7 +11,7 @@ const Modal = ({ isOpen, SetModal, Log_func, Reg_func }) => {
 
     const modalStyle = {
         transform: isOpen ? 'scale(1)' : 'scale(0)',
-        height: login_act ? '520px' : '440px',
+        height: login_act ? '600px' : '440px',
     };
 
 

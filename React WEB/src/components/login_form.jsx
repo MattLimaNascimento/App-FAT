@@ -16,7 +16,8 @@ const Login_form = ({ login_func, Login_act, Register_page }) => {
     const handleInputPassWord = (e) => {
         setInputPassWord(e.target.value);
     };
-    const handleAddTaskClick = () => {
+    const handleAddTaskClick = (e) => {
+        e.preventDefault();
         login_func(InputEmail, InputPassWord);
     };
     const loginStyle = {
@@ -34,7 +35,7 @@ const Login_form = ({ login_func, Login_act, Register_page }) => {
     return (
         <div style={loginStyle} className={style.form_box}>
             <h2>Login</h2>
-            <FormGeneric act={'#'}>
+            <FormGeneric onsubmit={handleAddTaskClick} act={'#'}>
                 <div className={style.input_box}>
                     <span className={style.icon}><MdEmail /></span>
                     <input type="email" id="email_entrada" onChange={handleInputEmail} required />
@@ -55,7 +56,7 @@ const Login_form = ({ login_func, Login_act, Register_page }) => {
                     <label><input type="checkbox" id="checkbox" />Lembre-se de mim</label>
                     <a href="#" onClick={forgotPassword}>Esqueceu sua Senha?</a>
                 </div>
-                <Button_p action={handleAddTaskClick} nome={style.btn_1}>
+                <Button_p Type={'submit'} nome={style.btn_1}>
                     <div className="login-name">Login</div>
                     {/* <div className="loading login">Loading</div> */}
                 </Button_p>
