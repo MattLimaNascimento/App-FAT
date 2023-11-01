@@ -99,29 +99,23 @@ class RidesAPIView(generics.ListCreateAPIView):
 
 
 
-class RideDetailAPIView(generics.GenericAPIView,
-                        mixins.RetrieveModelMixin,
-                        mixins.DestroyModelMixin,
-                        mixins.UpdateModelMixin
-                        ):
+class RideDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
-
     lookup_field = 'pk'
 
-    def get(self,request,*args, **kwargs):
-        return self.retrieve(request,*args, **kwargs)
+    def get_object(self):
+        if self.kwargs.get('Rides_pk'):
+            return get_object_or_404(self.get_queryset(), carona_id=self.kwargs.get('Rides_pk'),
+                                     pk=self.kwargs.get('profile_pk'))
+        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('profile_pk'))
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
 
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
 
 
 """
-API de Perfis (v1)
+API de Perfis 
 
 """
 
@@ -138,6 +132,7 @@ class ProfilesAPIView(generics.ListCreateAPIView):
         data = request.data
         if not cnh_valido(data['cnh']):
             raise serializers.ValidationError(' CNH deve ser válido ! ')
+        
        
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
@@ -156,30 +151,16 @@ class ProfilesAPIView(generics.ListCreateAPIView):
     
        
         
-
-
-class ProfileDetailAPIView(
-        generics.GenericAPIView,
-        mixins.RetrieveModelMixin,
-        mixins.UpdateModelMixin,
-        mixins.DestroyModelMixin):
-    
+class ProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-
     lookup_field = 'pk'
 
-
-    def get(self,request,*args,**kwargs):
-        return self.retrieve(request,*args,**kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
-
+    def get_object(self):
+        if self.kwargs.get('Rides_pk'):
+            return get_object_or_404(self.get_queryset(), perfil_id=self.kwargs.get('profiles_pk'),
+                                     pk=self.kwargs.get('profile_pk'))
+        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('profile_pk'))
 
 # Autentificação para user logado
 class UserDetailAPIView(generics.RetrieveAPIView):

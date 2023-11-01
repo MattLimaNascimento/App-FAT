@@ -22,7 +22,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['user','nome','email','ativo','placa_carro','cnh','diretorio','senha','senha2']
+        fields = ['user','nome','ativo','email','placa_carro','cnh','diretorio','senha','senha2']
+
+    # def validate(self,value):
+    #     if value and not cnh_valido(value['cnh']):
+    #         raise serializers.ValidationError('CNH deve ser válido')
+    #     return value
+
+
         
     
     def save(self):

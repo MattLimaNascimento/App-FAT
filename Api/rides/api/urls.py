@@ -5,6 +5,7 @@ from .views import (RidesAPIView,
                     ProfilesAPIView,
                     UserDetailAPIView,
                     )
+
                  
 # create your routes here !
 
