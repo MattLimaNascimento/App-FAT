@@ -5,6 +5,7 @@ import { BiSolidLockAlt } from 'react-icons/bi';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import Button_p from './button';
 import style from './SCSS/login_form.module.css';
+import axios from 'axios';
 
 const Login_form = ({ login_func, Login_act, Register_page }) => {
     const [pass, setpass] = useState(false);
@@ -28,8 +29,25 @@ const Login_form = ({ login_func, Login_act, Register_page }) => {
         opacity: pass ? 1 : 0,
         overflow: pass ? 'visible' : 'hidden',
     };
-    const forgotPassword = () => {
-        alert('Função esqueceu senha!');
+    const forgotPassword = async () => {
+        if (!InputEmail) {
+            alert('Por favor, insira seu email para recuperação de senha!')
+            return
+        }
+        const infos = {
+            'email': InputEmail
+        }
+        await axios.post('http://127.0.0.1:8000/api/auth/users/reset_password/', infos, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if(res.status) {
+                alert('Email de solicitação de troca de senha enviado com sucesso para o seu email!');
+            }
+        })
+        .catch(err => console.error(err));
     };
 
     return (

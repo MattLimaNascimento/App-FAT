@@ -20,7 +20,7 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
 
     const hundleImageClick = () => {
         inputRef.current.click();
-    }
+    };
     const handleInputEmail = (e) => {
         setInputEmail(e.target.value);
     };

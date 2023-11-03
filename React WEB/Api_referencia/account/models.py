@@ -16,9 +16,9 @@ class UserManager(BaseUserManager):
         """
         Creates and saves a User with the given email, name and password.
         """
-        if(cnh != None):
-            if len(str(cnh)) != 11:
-                raise serializers.ValidationError({'cnh': 'CNH deve conter 11 dígitos!'})
+        # if(cnh != None):
+        #     if len(str(cnh)) != 11:
+        #         raise serializers.ValidationError({'cnh': 'CNH deve conter 11 dígitos!'})
         if not email:
             raise ValueError('User must have an email address')
         user = self.model(
@@ -33,7 +33,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, email, name,diretorio, is_admin=True, password=None):
+    def create_superuser(self, email, name,
+                        #  diretorio, 
+                        is_admin=True, password=None):
         """
         Creates and saves a Superuser with the given email, name and password.
         """
