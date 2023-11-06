@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import style from './SCSS/Modal.module.css';
 import FormGeneric from './form';
 import styles from './SCSS/login_form.module.css';
-import { MdEmail } from 'react-icons/md';
-import { BiSolidLockAlt } from 'react-icons/bi';
+import { BsFillPersonVcardFill } from 'react-icons/bs';
+import { BiSolidCar } from 'react-icons/bi';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import Button_p from './button';
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ const SegurancaMenu = styled.div`
     }
 `
 
-const Seguranca = ({activateTela , Change}) => {
+const Seguranca = ({ activateTela, Change }) => {
     const [pass, setpass] = useState(false);
     const [InputEmail, setInputEmail] = useState();
     const [InputPassWord, setInputPassWord] = useState();
@@ -55,34 +55,28 @@ const Seguranca = ({activateTela , Change}) => {
                 <div className={style.container_wrapper}>
                     <div className={style.wrapper3}>
                         <div className={styles.form_box}>
-                            <h2>Login</h2>
+                            <h2>Motorista</h2>
                             <FormGeneric act={'#'}>
                                 <div className={styles.input_box}>
-                                    <span className={styles.icon}><MdEmail /></span>
-                                    <input type="email" id="email_entrada" onChange={handleInputEmail} required />
-                                    <label>Email</label>
+                                    <span className={styles.icon}><BsFillPersonVcardFill /></span>
+                                    <input type="number" id="cnh" onChange={handleInputEmail} required />
+                                    <label>Nº Registro (CNH)</label>
                                 </div>
                                 <div className={styles.input_box}>
                                     <span className={styles.icon}>
-                                        <div onClick={() => setpass(!pass)} className={styles.eyes}>
-                                            <VscEyeClosed style={eyes} className='closed' />
-                                            <VscEye className={styles.open} />
-                                        </div>
-                                        <BiSolidLockAlt />
+                                        <BiSolidCar />
                                     </span>
-                                    <input type={pass ? "text" : "password"} id="senha_entrada" onChange={handleInputPassWord} required />
-                                    <label>Senha</label>
+                                    <input type='text' id="senha_entrada" onChange={handleInputPassWord} required />
+                                    <label>Placa do Carro</label>
                                 </div>
                                 <div className={styles.remember_forgot}>
-                                    <label><input type="checkbox" id="checkbox" />Lembre-se de mim</label>
-                                    <a href="#" onClick={forgotPassword}>Esqueceu sua Senha?</a>
                                 </div>
                                 <Button_p action={handleAddTaskClick} nome={styles.btn_1}>
                                     <div className="login-name">Login</div>
                                     {/* <div className="loading login">Loading</div> */}
                                 </Button_p>
                                 <div className={styles.login_register}>
-                                    <p>Já possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click())} className="register-link">Registrar</a></p>
+                                    <p>Ainda não possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click())} className="register-link">Registrar</a></p>
                                 </div>
                             </FormGeneric>
                         </div>
@@ -91,7 +85,7 @@ const Seguranca = ({activateTela , Change}) => {
                 </div>
             </div>
         </SegurancaMenu>
-        
+
     );
 }
 
