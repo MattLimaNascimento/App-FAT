@@ -4,7 +4,8 @@ import "./App.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Pag_principal from './pages/Logado/pag_prin';
 import Teste from './pages/Teste/Teste';
-
+import Activation from './pages/Activation';
+import Reset_Password from './pages/Reset_password';
 const App = () => {
   return ( 
     <BrowserRouter>
@@ -12,6 +13,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/logado" element={<Pag_principal />} />
         <Route path="/teste" element={<Teste />} />
+        <Route path='/activate/:uid/:token' element={<Activation />} />
+        <Route path='/password-reset/:uid/:token' element={<Reset_Password />} />
       </Routes>
     </BrowserRouter>
   );

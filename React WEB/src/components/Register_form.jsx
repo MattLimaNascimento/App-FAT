@@ -15,11 +15,12 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
     const [InputEmail, setInputEmail] = useState();
     const [InputNome, setInputNome] = useState();
     const [InputPassWord, setInputPassWord] = useState();
+    const [Re_InputPassWord, setRe_InputPassWord] = useState();
     const fileInput = createRef();
 
     const hundleImageClick = () => {
         inputRef.current.click();
-    }
+    };
     const handleInputEmail = (e) => {
         setInputEmail(e.target.value);
     };
@@ -28,6 +29,9 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
     };
     const handleInputPassWord = (e) => {
         setInputPassWord(e.target.value);
+    };
+    const handleRe_InputPassWord = (e) => {
+        setRe_InputPassWord(e.target.value);
     };
 
     const hundleImageChange = (event) => {
@@ -64,11 +68,6 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
         setImage(file);
     }
 
-    const Alert = () => {
-        alert('Por favor insira sua foto!')
-        return
-    }
-
     const handleUpload = async (e) => {
         e.preventDefault();
         const file = fileInput.current.files[0];
@@ -88,30 +87,26 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
 
 
         const uniqueFileName = uuidv4() + fileExtension;
-        const infos = {
-            nome: InputNome,
-            diretorio: `../../../api/Img/${uniqueFileName}`,
-            email: InputEmail,
-            senha: InputPassWord,
-            cnh: null,
-            placa_carro: '',
+        
+        
+        const formData = new File([file], uniqueFileName);
+
+        if (InputPassWord == Re_InputPassWord) {
+            const infos = {
+                nome: InputNome,
+                diretorio: formData,
+                email: InputEmail,
+                senha: InputPassWord,
+                re_senha: Re_InputPassWord,
+                cnh: '',
+                placa_carro: '',
+            }
+    
+            Register_func(infos.diretorio, infos.email, infos.senha, infos.re_senha, infos.nome, infos.cnh, infos.placa_carro);
+        } else {
+            alert('As senhas não conferem!');
         }
 
-
-        const formData = new FormData();
-        formData.set('file', file, uniqueFileName);
-
-        try {
-            const response = await fetch('/image_upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const parsedResponse = await response.json();
-            parsedResponse ? (alert('Usuário cadastrado com sucesso!'), login_turn()) : alert('Ocorreu um erro.');
-        } catch (e) {
-            console.error(e.message);
-        }
-        Register_func(infos.diretorio, infos.email, infos.senha, infos.nome, infos.cnh, infos.placa_carro);
     };
 
     const registerStyle = {
@@ -122,7 +117,8 @@ const RegisterForm = ({ login_Act, login_turn, Register_func }) => {
     const inputFields = [
         { onchange: handleInputNome, type: 'text', name: 'usuario_registro', id: 'usuario_registro', label: 'Usuário', icon: <BsFillPersonFill /> },
         { onchange: handleInputEmail, type: 'email', name: 'email_registro', id: 'email_registro', label: 'E-mail', icon: <MdEmail /> },
-        { onchange: handleInputPassWord, type: 'password', name: 'senha_registro', id: 'senha_registro', label: 'Senha', icon: <BiSolidLockAlt /> }
+        { onchange: handleInputPassWord, type: 'password', name: 'senha_registro', id: 'senha_registro', label: 'Senha', icon: <BiSolidLockAlt /> },
+        { onchange: handleRe_InputPassWord, type: 'password', name: 'senha_registro', id: 'senha_registro', label: 'Confirmar Senha', icon: <BiSolidLockAlt /> }
     ];
 
     return (

@@ -7,7 +7,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
-
+from rest_framework.decorators import api_view
+from rest_framework import serializers
 
 from accounts.models import Profile
 from rides.models import Ride
@@ -17,13 +18,55 @@ from django.contrib.auth.models import User
 API de Rides (v1)
 """
 
+@api_view(['GET'])
+def get_routes(request):
+    routes = [
+        {
+            'Endpoint': '/rides/api/profiles/',
+            'method': 'GET','POST'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna uma lista de perfis'
+        },
+        {
+            'Endpoint': '/rides/api/profiles/<int:pk>',
+            'method': 'GET','PUT'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna um único perfil.Permite alterar algum campo deste'
+        },
+        {
+            'Endpoint': '/rides/api/rides/<int:pk>',
+            'method': 'GET','PUT'
+            'usuario':None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna carona especifica por meio do id e altualiza dados desta '
+        },
+        {
+            'Endpoint': '/rides/api/rides/',
+            'method': 'GET','POST'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio':None,
+            'description': 'Retorna lista de caronas e permite postar nova.'
+        },
+        
+    ]
+    return Response(routes)
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
     Listar Rides mediante filtro
     Ref POST : (RAW)
     {
-    "modalidade": "DEFAULT",
+    "modalidade": "CARONA",
     "motorista": 7,
     "data_saida": "2023-09-20T14:45:00Z",
     "info": "Teste"
@@ -41,10 +84,6 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-    
-
-
-
 
 class RideDetailAPIView(generics.GenericAPIView,
                         mixins.RetrieveModelMixin,
@@ -80,6 +119,9 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def post(self, request,):
         data = request.data
+        if len(data['cnh']) != 11:
+            raise serializers.ValidationError("O campo deve ter exatamente 11 caracteres.")
+
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
@@ -119,7 +161,6 @@ class ProfileDetailAPIView(
 """
 API (v2)
 """
-
 
 class RidesViewSet(viewsets.ModelViewSet):
     queryset = Ride.objects.all()

@@ -1,17 +1,10 @@
-.container-car-register {
+.container_car_register {
   position: absolute;
-  top: 25%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 30;
 }
-
-.container-car-register.desactive {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.container-car-register .Car_register {
+.container_car_register .Car_register {
   position: relative;
   cursor: pointer;
   width: 240px;
@@ -23,8 +16,7 @@
   border-radius: 20px;
   border: none;
 }
-
-.container-car-register .Car_register a {
+.container_car_register .Car_register a {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,13 +40,7 @@
   -webkit-backdrop-filter: blur(15px);
           backdrop-filter: blur(15px);
 }
-
-.container-car-register .Car_register:hover a {
-  background-color: #79c3ff;
-  letter-spacing: 3px;
-}
-
-.container-car-register .Car_register a::before {
+.container_car_register .Car_register a::before {
   content: "";
   position: absolute;
   top: 0;
@@ -66,12 +52,26 @@
   transition: 0.5s;
   filter: blur(0px);
 }
-
-.container-car-register .Car_register:hover a::before {
+.container_car_register .Car_register:hover a {
+  background-color: #79c3ff;
+  letter-spacing: 3px;
+}
+.container_car_register .Car_register:hover a::before {
   transform: skewX(45deg) translate(200px);
 }
-
-.container-car-register .Car_register::before {
+.container_car_register .Car_register:hover::before {
+  bottom: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+}
+.container_car_register .Car_register:hover::after {
+  top: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+}
+.container_car_register .Car_register::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -84,15 +84,7 @@
   transition: 0.5s;
   transition-delay: 0.5;
 }
-
-.container-car-register .Car_register:hover::before {
-  bottom: 0;
-  height: 50%;
-  width: 80%;
-  border-radius: 30px;
-}
-
-.container-car-register .Car_register::after {
+.container_car_register .Car_register::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -106,15 +98,8 @@
   transition-delay: 0.5;
 }
 
-.container-car-register .Car_register:hover::after {
-  top: 0;
-  height: 50%;
-  width: 80%;
-  border-radius: 30px;
-}
-
-.container-car-register .Car_register:nth-child(1)::before,
-.container-car-register .Car_register:nth-child(1)::after {
+.container_car_register .Car_register:nth-child(1)::before,
+.container_car_register .Car_register:nth-child(1)::after {
   background: #2db2ff;
   box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff, 0 0 60px #2db2ff;
 }/*# sourceMappingURL=Button_menu.module.css.map */

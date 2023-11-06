@@ -23,13 +23,15 @@ def login_view(request):
     if request.method == 'POST':
         nome = request.POST['nome']
         password = request.POST['password']
-        user = auth(request, username=nome, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('login')
-        else:
-            error_message = 'Informações incorretas. Tente novamente.'
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # user = auth(request, username=nome, password=password)
+        print(nome)
+        print(password)
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('login')
+        # else:
+        #     error_message = 'Informações incorretas. Tente novamente.'
+        #     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def deslogar_view(request):

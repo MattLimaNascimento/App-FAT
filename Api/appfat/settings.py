@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rides',
     'accounts',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'corsheaders',
     'rest_framework_simplejwt'
 
@@ -60,9 +62,19 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:3000",
     
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -104,6 +116,14 @@ DATABASES = {
     }
 }
 
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_USE_TLS = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,8 +164,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-root')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -156,38 +175,65 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ],
 
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # numeros de objetos por pagina
-    'PAGE_SIZE': 5,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # # numeros de objetos por pagina
+    # 'PAGE_SIZE': 5,
 
-    'DEFAULT_THROTTLE_CLASSES': (
-        # 'rest_framework.throttling.UserRateThrottle',
-        # 'rest_framework.throttling.AnonRateThrottle'
-    ),
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     # 'rest_framework.throttling.UserRateThrottle',
+    #     # 'rest_framework.throttling.AnonRateThrottle'
+    # ),
     # 'DEFAULT_THROTTLE_RATES': { 'Anon': '5/minute','User': '10/minute' },
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # autentificação para iniciar sessão:
-        # 'rest_framework.authentication.SessionAuthentication',
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     # autentificação para iniciar sessão:
+    #     # 'rest_framework.authentication.SessionAuthentication',
 
-        # autentificação via Token:
-        # 'rest_framework.authentication.TokenAuthentication',
-    ),
+    #     # autentificação via Token:
+    #     # 'rest_framework.authentication.TokenAuthentication',
+    # ),
        
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
-
-
 }
 
 # jwt access TOKEN time configuration
 
 SIMPLE_JWT ={
+    'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'REFRESH_TOKEN_LIFETIME':timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS':True
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS':True,
+    "UPDATE_LAST_LOGIN": True,
+}
+
+# Djoser Settings
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE':True,
+    'ACTIVATION_URL':'/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL':True,
+    'SEND_CONFIRMATION_EMAIL':True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'TOKEN_MODEL': None,       # To Delete User Must Set it to None
+    'SERIALIZERS':{
+        'user_create': 'rides.api.serializers.UserSerialier',
+        'user': 'rides.api.serializers.UserSerialier',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    },
+    'EMAIL': {
+        'activation': 'rides.api.email.ActivationEmail',
+        'confirmation': 'rides.api.email.ConfirmationEmail',
+        'password_reset': 'rides.api.email.PasswordResetEmail',
+        'password_changed_confirmation': 'rides.api.email.PasswordChangedConfirmationEmail',
+    },
 }
