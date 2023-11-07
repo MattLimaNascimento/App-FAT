@@ -6,6 +6,7 @@ from .validators import cnh_valido
 
 
 
+
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
         nome_usuario = serializers.SerializerMethodField()
@@ -24,13 +25,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['user','nome','ativo','email','placa_carro','cnh','diretorio','senha','senha2']
 
-    # def validate(self,value):
-    #     if value and not cnh_valido(value['cnh']):
-    #         raise serializers.ValidationError('CNH deve ser válido')
-    #     return value
-
-
-        
     
     def save(self):
         user = User()

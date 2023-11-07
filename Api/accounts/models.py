@@ -2,6 +2,7 @@ from django.db import models as mo
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 import os
+from validate_docbr import CNH
 
 
 def upload_path(instance, filename):
@@ -38,7 +39,7 @@ class Profile(mo.Model):
     ativo = mo.BooleanField(default=True)
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
-    cnh = mo.CharField(blank=True,max_length=11)
+    cnh = mo.CharField(blank=True,null=True,max_length=11)
     diretorio = mo. ImageField(blank=False,
                                upload_to=upload_path)
     senha = mo.CharField(max_length=50, default='*********')
