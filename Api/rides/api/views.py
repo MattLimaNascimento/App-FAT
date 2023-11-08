@@ -14,6 +14,7 @@ from accounts.models import Profile
 from rides.models import Ride
 from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
 from django.contrib.auth.models import User
+from.validators import cnh_valido
 """
 API de Rides (v1)
 """
@@ -119,9 +120,6 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def post(self, request,):
         data = request.data
-        if len(data['cnh']) != 11:
-            raise serializers.ValidationError("O campo deve ter exatamente 11 caracteres.")
-
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
@@ -158,31 +156,6 @@ class ProfileDetailAPIView(
         return self.destroy(request, *args, **Kwargs)
 
 
-"""
-API (v2)
-"""
-
-class RidesViewSet(viewsets.ModelViewSet):
-    queryset = Ride.objects.all()
-    serializer_class = RidesSerializer
-
-    @action(detail=True, methods=['get'])
-    def profiles(self, request, pk=None):
-        self.pagination_class_sizes = 5
-        profiles = Profile.objects.all()
-        page = self.paginate_queryset(profiles)
-
-        if page is not None:
-            serializer = ProfileSerializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = ProfileSerializer(profiles, many=True)
-        return Response(serializer.data)
-
-
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
 
 # Autentificação para user logado
 class UserDetailAPIView(generics.RetrieveAPIView):
