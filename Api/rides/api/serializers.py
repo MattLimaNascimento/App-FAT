@@ -1,4 +1,4 @@
-from accounts.models import Profile
+from accounts.models import Profile , CustomUser
 from rides.models import Ride
 from django.contrib.auth.models import User
 from rest_framework import serializers
@@ -11,8 +11,8 @@ from .validators import cnh_valido
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
         nome_usuario = serializers.SerializerMethodField()
-        model = User
-        fields = ['id', 'username', 'email']
+        model = CustomUser
+        fields = ['id', 'username','diretorio']
 
         def get_nome_usuario(self, obj):
             return obj.nome.username

@@ -53,5 +53,9 @@ class Profile(mo.Model):
     # matricula = mo.IntegerField()
     # idade = mo.IntegerField()
 
-        
+class CustomUser(mo.Model):
+    user = mo.OneToOneField(User,on_delete=mo.CASCADE,related_name='customuser')
+    diretorio = mo.ImageField(blank=False,upload_to=upload_path)
+    username = mo.CharField(max_length=50)
+    email =mo.EmailField(max_length=50)
     
