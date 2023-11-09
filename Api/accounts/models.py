@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from rides.api.validators import cnh_valido
 from django.core.validators import MaxValueValidator
+import os
 
 
 
