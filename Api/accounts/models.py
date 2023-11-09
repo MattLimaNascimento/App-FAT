@@ -5,6 +5,7 @@ import os
 from validate_docbr import CNH
 
 
+
 def upload_path(instance, filename):
     base_filename, file_extension = os.path.splitext(filename)
     return f'static/img/{base_filename}{file_extension}'
@@ -25,6 +26,10 @@ def create_user(self, email, name, password, diretorio):
         user.save(using=self._db)
         return user
 
+class UserProfile(mo.Model):
+    pass
+
+    
 class Profile(mo.Model):
     class Genero(mo.TextChoices):
         M = 'M', _('Masculino')
@@ -34,15 +39,15 @@ class Profile(mo.Model):
         PASSAGEIRO = 'PASSAGEIRO', _('Passageiro')
         MOTORISTA = 'MOTORISTA', _('Motorista')
 
-    user = mo.ForeignKey(User, on_delete=mo.CASCADE)
+    user = mo.OneToOneField(User,on_delete=mo.CASCADE)
     nome = mo.CharField(max_length=20)
     ativo = mo.BooleanField(default=True)
     email = mo.EmailField(max_length=50)
-    placa_carro = mo.CharField(max_length=8, null=True, blank=True)
-    cnh = mo.CharField(blank=True,null=True,max_length=11)
-    diretorio = mo. ImageField(blank=False,
+    placa_carro = mo.CharField(max_length=8, blank=True)
+    cnh = mo.CharField(blank=True,max_length=11)
+    diretorio = mo.ImageField(blank=False,
                                upload_to=upload_path)
-    senha = mo.CharField(max_length=50, default='*********')
+    senha = mo.CharField(max_length=50, default='')
     # gender = mo.CharField(
     #     max_length=12, choices=Genero.choices, default='Genero.M')
     # tipos = mo.CharField(max_length=12, choices=Tipos.choices,
@@ -52,5 +57,11 @@ class Profile(mo.Model):
 
     def __str__(self):
         return self.email
+    
+
+
+    
+    
+
 
 

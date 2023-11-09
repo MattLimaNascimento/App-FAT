@@ -2,17 +2,17 @@ from accounts.models import Profile
 from rides.models import Ride
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .validators import cnh_valido
+
 
 
 
 
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
+        diretorio = serializers.SerializerMethodField(source='profile.diretorio',read_only=True)  
         nome_usuario = serializers.SerializerMethodField()
         model = User
-        fields = ['id', 'username', 'first_name',
-                  'last_name', 'email']
+        fields = ['id','username','email','diretorio']
 
         def get_nome_usuario(self, obj):
             return obj.nome.username

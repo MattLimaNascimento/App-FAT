@@ -132,8 +132,8 @@ class ProfilesAPIView(generics.ListCreateAPIView):
     def post(self, request,):
         data = request.data
         print(data['cnh'])
-        # if not cnh_valido(data['cnh']):
-        #     raise serializers.ValidationError('CNH invalido !')
+        if not cnh_valido(data['cnh']):
+            raise serializers.ValidationError('CNH invalido !')
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
