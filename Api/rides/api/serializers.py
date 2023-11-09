@@ -1,7 +1,11 @@
-from accounts.models import Profile
+from accounts.models import Profile , CustomUser
 from rides.models import Ride
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .validators import cnh_valido
+
+
+
 
 
 
@@ -11,8 +15,13 @@ class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
         diretorio = serializers.SerializerMethodField(source='profile.diretorio',read_only=True)  
         nome_usuario = serializers.SerializerMethodField()
+<<<<<<< HEAD
         model = User
         fields = ['id','username','email','diretorio']
+=======
+        model = CustomUser
+        fields = ['id', 'username','diretorio']
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 
         def get_nome_usuario(self, obj):
             return obj.nome.username
@@ -24,6 +33,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user','nome','ativo','email','placa_carro','cnh','diretorio','senha','senha2']
+<<<<<<< HEAD
+=======
+        
+    # def validate(self,data):
+    #     if not cnh_valido(data['cnh']):
+    #         raise serializers.ValidationError('CNH inválida. Certifique-se de que o formato é válido.')
+    #     return data
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 
     
     def save(self):

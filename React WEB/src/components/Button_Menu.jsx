@@ -1,6 +1,6 @@
 import React from 'react';
 import Button_p from './button';
-import '../pages/Logado/sass/Button_menu.scss'
+import style from './SCSS/Button_menu.module.scss'
 
 const Button_Menu = ({ FuncRegister }) => {
     const handleClick = () => {
@@ -8,8 +8,8 @@ const Button_Menu = ({ FuncRegister }) => {
     }
 
     return (
-        <div className="container-car-register">
-            <Button_p action={handleClick} ID={"Caroneiro"} nome={"Car_register"}>
+        <div className={style.container_car_register}>
+            <Button_p action={handleClick} ID={"Caroneiro"} nome={style.Car_register}>
                 <a className="Caroneiro">
                     Quero Ser Caroneiro!
                 </a>

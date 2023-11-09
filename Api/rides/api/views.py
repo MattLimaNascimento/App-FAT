@@ -7,17 +7,24 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.decorators import api_view
+<<<<<<< HEAD
 from django_filters.rest_framework import DjangoFilterBackend
+=======
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 from rest_framework import serializers
 
 from accounts.models import Profile
 from rides.models import Ride
 from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from . validators import cnh_valido
 
 
 
+=======
+from.validators import cnh_valido
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 """
 API de Rides (v1)
 """
@@ -65,10 +72,6 @@ def get_routes(request):
     ]
     return Response(routes)
 
-
-
-
-
 class RidesAPIView(generics.ListCreateAPIView):
     """
     Listar Rides mediante filtro
@@ -94,10 +97,6 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-    
-
-
-
 
 class RideDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
@@ -131,9 +130,14 @@ class ProfilesAPIView(generics.ListCreateAPIView):
 
     def post(self, request,):
         data = request.data
+<<<<<<< HEAD
         print(data['cnh'])
         if not cnh_valido(data['cnh']):
             raise serializers.ValidationError('CNH invalido !')
+=======
+        if not cnh_valido(data['cnh']):
+            raise serializers.ValidationError('CNH inválido!')
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
@@ -156,11 +160,24 @@ class ProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileSerializer
     lookup_field = 'pk'
 
+<<<<<<< HEAD
     def get_object(self):
         if self.kwargs.get('Rides_pk'):
             return get_object_or_404(self.get_queryset(), perfil_id=self.kwargs.get('profiles_pk'),
                                      pk=self.kwargs.get('profile_pk'))
         return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('profile_pk'))
+=======
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **Kwargs):
+        return self.destroy(request, *args, **Kwargs)
+
+
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 
 # Autentificação para user logado
 class UserDetailAPIView(generics.RetrieveAPIView):

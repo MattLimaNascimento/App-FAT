@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../pages/Logado/sass/menus.scss';
+import './SCSS/menus.scss';
 
-const Menus = () => {
+const Menus = ({ tela }) => {
     const [Change, setChange] = useState('Home');
     const items = [
         { id: 'tela1_cel' }

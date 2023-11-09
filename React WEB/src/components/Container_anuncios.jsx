@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from '../pages/Logado/sass/anuncios.module.scss';
+import './SCSS/anuncios.css';
 
 const Anuncios_Caronas = () => {
 
@@ -45,8 +45,8 @@ const Anuncios_Caronas = () => {
 
 
     return (
-        <div className={styles.containerAnuncios_caronas}>
-            <header className={styles.rodape_anuncios}>
+        <div className={'containerAnuncios_caronas'}>
+            <header className={'rodape_anuncios'}>
                 <h2>Caronas Fixas Por Dia da Semana</h2>
             </header>
             <div className="slide-container swiper">

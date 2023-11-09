@@ -1,0 +1,20 @@
+.btn_login {
+  display: flex;
+  width: 100px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #1976D2;
+  color: aliceblue;
+  font-size: x-large;
+  font-family: "Inter", sans-serif;
+  border: none;
+  box-shadow: -4px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.btn_login:hover {
+  background-color: #2196F3;
+}/*# sourceMappingURL=B_Entrar.module.css.map */

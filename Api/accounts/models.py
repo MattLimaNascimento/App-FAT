@@ -1,8 +1,14 @@
 from django.db import models as mo
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+<<<<<<< HEAD
 import os
 from validate_docbr import CNH
+=======
+from rides.api.validators import cnh_valido
+from django.core.validators import MaxValueValidator
+
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 
 
 
@@ -26,10 +32,13 @@ def create_user(self, email, name, password, diretorio):
         user.save(using=self._db)
         return user
 
+<<<<<<< HEAD
 class UserProfile(mo.Model):
     pass
 
     
+=======
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 class Profile(mo.Model):
     class Genero(mo.TextChoices):
         M = 'M', _('Masculino')
@@ -39,13 +48,24 @@ class Profile(mo.Model):
         PASSAGEIRO = 'PASSAGEIRO', _('Passageiro')
         MOTORISTA = 'MOTORISTA', _('Motorista')
 
+<<<<<<< HEAD
     user = mo.OneToOneField(User,on_delete=mo.CASCADE)
+=======
+    user = mo.ForeignKey(User, on_delete=mo.CASCADE)
+    ativo = mo.BooleanField(default=True)
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
     nome = mo.CharField(max_length=20)
     ativo = mo.BooleanField(default=True)
     email = mo.EmailField(max_length=50)
+<<<<<<< HEAD
     placa_carro = mo.CharField(max_length=8, blank=True)
     cnh = mo.CharField(blank=True,max_length=11)
     diretorio = mo.ImageField(blank=False,
+=======
+    placa_carro = mo.CharField(max_length=8, null=True, blank=True)
+    cnh = mo.CharField(blank=True,max_length=11,null=True,validators=[cnh_valido])
+    diretorio = mo. ImageField(blank=False,
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
                                upload_to=upload_path)
     senha = mo.CharField(max_length=50, default='')
     # gender = mo.CharField(
@@ -55,6 +75,7 @@ class Profile(mo.Model):
     # matricula = mo.IntegerField()
     # idade = mo.IntegerField()
 
+<<<<<<< HEAD
     def __str__(self):
         return self.email
     
@@ -65,3 +86,11 @@ class Profile(mo.Model):
 
 
 
+=======
+class CustomUser(mo.Model):
+    user = mo.OneToOneField(User,on_delete=mo.CASCADE,related_name='customuser')
+    diretorio = mo.ImageField(blank=False,upload_to=upload_path)
+    username = mo.CharField(max_length=50)
+    email =mo.EmailField(max_length=50)
+    
+>>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
