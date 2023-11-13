@@ -32,3 +32,5 @@ class Profile(mo.Model):
     #                      default='Tipos.Passageiro')
     # matricula = mo.IntegerField()
     # idade = mo.IntegerField()
+    def __str__(self):
+        return self.nome
