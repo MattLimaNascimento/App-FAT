@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from rest_framework import serializers
 import os
+from validate_docbr import CNH
+
 # Custom User Manager
 def upload_path(instance,filename):
     return filename
@@ -21,6 +23,11 @@ class UserManager(BaseUserManager):
         #         raise serializers.ValidationError({'cnh': 'CNH deve conter 11 dígitos!'})
         if not email:
             raise ValueError('User must have an email address')
+        print(str(cnh))
+        if cnh is not '':
+            cnh_validator = CNH()
+            if not cnh_validator.validate(str(cnh)):
+                raise serializers.ValidationError('CNH inválida. Certifique-se de que o formato é válido.')
         user = self.model(
             email=self.normalize_email(email),
             name=name,
@@ -60,7 +67,7 @@ class User(AbstractBaseUser):
     is_active=models.BooleanField(default=True)
     is_admin=models.BooleanField(default=False)
     placa_carro = models.CharField(max_length=8, blank=True)
-    cnh = models.IntegerField(null=True,blank=True, default=None)
+    cnh = models.CharField(max_length=11,blank=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     diretorio = models.ImageField(_('Image'), default='posts/default.jpg', upload_to=upload_path)
     updated_at = models.DateTimeField(auto_now=True)
