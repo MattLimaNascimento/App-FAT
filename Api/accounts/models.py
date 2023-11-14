@@ -42,6 +42,7 @@ class Profile(mo.Model):
     ativo = mo.BooleanField(default=True)
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
+<<<<<<< HEAD
     cnh = mo.CharField(blank=True,max_length=11,null=True,validators=[cnh_valido])
     diretorio = mo. ImageField(blank=False,
                                upload_to=upload_path)
@@ -59,3 +60,12 @@ class CustomUser(mo.Model):
     username = mo.CharField(max_length=50)
     email =mo.EmailField(max_length=50)
     
+=======
+    cnh = mo.CharField(max_length=11 , blank=True, default='')
+    diretorio = mo. ImageField(blank=False,
+                               upload_to=upload_path)
+    senha = mo.CharField(max_length=50, default='*********')
+
+    def __str__(self):
+        return self.nome
+>>>>>>> origin/Matheus-Branch

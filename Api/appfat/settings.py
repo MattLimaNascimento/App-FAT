@@ -180,6 +180,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+<<<<<<< HEAD
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
 <<<<<<< HEAD
@@ -188,6 +189,12 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
 >>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
     ],
+=======
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+>>>>>>> origin/Matheus-Branch
 
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

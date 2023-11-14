@@ -10,18 +10,23 @@ from .validators import cnh_valido
 
 
 
-
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
         diretorio = serializers.SerializerMethodField(source='profile.diretorio',read_only=True)  
         nome_usuario = serializers.SerializerMethodField()
+<<<<<<< HEAD
         model = CustomUser
         fields = ['id', 'username','diretorio']
+=======
+        model = Profile
+        fields = ['id', 'nome','diretorio', 'email']
+>>>>>>> origin/Matheus-Branch
 
         def get_nome_usuario(self, obj):
             return obj.nome.username
 
 
+<<<<<<< HEAD
 class ProfileSerializer(serializers.ModelSerializer):
     senha2 = serializers.CharField(write_only = True)
     
@@ -47,32 +52,31 @@ class ProfileSerializer(serializers.ModelSerializer):
         user.save() # senha criptografada salva
         return user # retornar user com senha criptografada
     
+=======
+>>>>>>> origin/Matheus-Branch
 
 
 class RidesSerializer(serializers.ModelSerializer):
-    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False,read_only=True)
-    passageiros_id = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=User.objects.all(),source='passageiros')
+    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
+    passageiros_id = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Profile.objects.all(),
+        source='passageiros'
+    )
+
     class Meta:
         model = Ride
-        fields = ['motorista','passageiros','passageiros_id','data_publicaçao',
-                  'data_saida','origem','destino','preço','veiculo','modalidade']
+        fields = ['id','motorista', 'passageiros', 'passageiros_id', 'data_publicaçao',
+                  'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
 
     def update(self, instance, validated_data):
         passageiros = validated_data.pop('passageiros')
-        instance = super(RidesSerializer, self).update(
-            instance, validated_data)
+        instance = super(RidesSerializer, self).update(instance, validated_data)
         instance.passageiros.clear()
         for passageiro in passageiros:
             instance.passageiros.add(passageiro)
-            return instance
-        
-        for atributo, valor in validated_data.items():
-            setattr(instance, atributo, valor)
-        instance.save()
         return instance
-    
-    def get_nome_passageiros(self, obj):
-        return obj.nome.passageiros
 
 class UserSerialier(serializers.ModelSerializer):
     class Meta:

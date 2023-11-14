@@ -1,6 +1,7 @@
-# DRF
+    # DRF
 from rest_framework.views import APIView
 from rest_framework.response import Response
+<<<<<<< HEAD
 from rest_framework import generics, mixins,viewsets,filters
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -12,11 +13,17 @@ from django_filters.rest_framework import DjangoFilterBackend
 =======
 >>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 from rest_framework import serializers
+=======
+from rest_framework import generics, mixins
+from rest_framework import status
+from rest_framework.decorators import api_view
+>>>>>>> origin/Matheus-Branch
 
 from accounts.models import Profile
 from rides.models import Ride
-from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
+from .serializers import RidesSerializer
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 <<<<<<< HEAD
 from . validators import cnh_valido
 
@@ -25,6 +32,10 @@ from . validators import cnh_valido
 =======
 from.validators import cnh_valido
 >>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
+=======
+from django.http import Http404
+
+>>>>>>> origin/Matheus-Branch
 """
 API de Rides (v1)
 """
@@ -112,15 +123,33 @@ class RideDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class ManagePassenger(APIView):
+    def patch(self, request, ride_id, *args, **kwargs):
+        return self.manage_passenger(request, ride_id, "Adicionar")
 
+<<<<<<< HEAD
 """
 API de Perfis 
+=======
+    def post(self, request, ride_id, *args, **kwargs):
+        return self.manage_passenger(request, ride_id, "Remover")
+>>>>>>> origin/Matheus-Branch
 
-"""
+    def manage_passenger(self, request, ride_id, tipo):
+        profile_id = request.data.get('id')
 
+        if not ride_id or not profile_id or not tipo:
+            return Response({'error': 'Ride ID, Profile ID, and Type are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-class ProfilesAPIView(generics.ListCreateAPIView):
+        try:
+            ride = Ride.objects.get(id=ride_id)
+            profile = Profile.objects.get(id=profile_id)
+        except Ride.DoesNotExist:
+            raise Http404('Ride not found')
+        except Profile.DoesNotExist:
+            raise Http404('Profile not found')
 
+<<<<<<< HEAD
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
     filter_backends = [DjangoFilterBackend,filters.OrderingFilter,filters.SearchFilter]
@@ -192,3 +221,16 @@ class UserDetailAPIView(generics.RetrieveAPIView):
     
     def get_object(self):
         return self.request.user
+=======
+        if tipo == "Adicionar":
+            # Adiciona o perfil como passageiro à Ride
+            ride.passageiros.add(profile)
+        elif tipo == "Remover":
+            # Remove o perfil como passageiro da Ride
+            ride.passageiros.remove(profile)
+        else:
+            return Response({'error': 'Invalid Type. Use "Adicionar" or "Remover".'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = RidesSerializer(ride)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+>>>>>>> origin/Matheus-Branch

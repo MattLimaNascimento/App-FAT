@@ -1,10 +1,7 @@
 from django.db import models as mo
 from datetime import datetime
 from django.utils.translation import gettext as _
-from django.contrib.auth.models import User
-from accounts.models import Profile
-
-# Create your models here.
+from account.models import User
 
 
 class Ride(mo.Model):
@@ -19,7 +16,7 @@ class Ride(mo.Model):
     motorista = mo.ForeignKey(
         User, on_delete=mo.CASCADE, related_name='driver', blank=True, null=True
     )
-    passageiros = mo.ManyToManyField(Profile, related_name='passenger', blank=True)
+    passageiros = mo.ManyToManyField(User, related_name='passenger', blank=True)
     data_publicaçao = mo.DateTimeField(default=datetime.now)
     data_saida = mo.DateTimeField(default=datetime.now)
     origem = mo.TextField(max_length=50, default='FAT')
