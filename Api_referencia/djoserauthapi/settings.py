@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     "corsheaders",
-    "account",
+    "accounts",
     "anuncios",
 ]
 
@@ -130,7 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 # JWT Configuration
 REST_FRAMEWORK = {
@@ -166,15 +166,15 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SERIALIZERS':{
-        'user_create': 'account.serializers.UserCreateSerializer',
-        'user': 'account.serializers.UserCreateSerializer',
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+        'user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
     'EMAIL': {
-        'activation': 'account.email.ActivationEmail',
-        'confirmation': 'account.email.ConfirmationEmail',
-        'password_reset': 'account.email.PasswordResetEmail',
-        'password_changed_confirmation': 'account.email.PasswordChangedConfirmationEmail',
+        'activation': 'accounts.email.ActivationEmail',
+        'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
     },
 }
 

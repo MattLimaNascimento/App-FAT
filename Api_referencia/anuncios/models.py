@@ -1,7 +1,7 @@
 from django.db import models as mo
 from datetime import datetime
 from django.utils.translation import gettext as _
-from account.models import User
+from accounts.models import User
 
 
 class Ride(mo.Model):

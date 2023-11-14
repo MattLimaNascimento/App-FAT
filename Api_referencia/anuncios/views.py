@@ -6,7 +6,7 @@ from rest_framework import status
 
 from anuncios.models import Ride
 from .serializers import RidesSerializer
-from account.models import User
+from accounts.models import User
 from django.http import Http404
 
 # Create your views here.
