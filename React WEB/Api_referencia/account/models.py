@@ -63,7 +63,7 @@ class User(AbstractBaseUser):
     is_active=models.BooleanField(default=True)
     is_admin=models.BooleanField(default=False)
     placa_carro = models.CharField(max_length=8, blank=True)
-    cnh = models.CharField(max_length=11,blank=True, default=None)
+    cnh = models.CharField(max_length=11,blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     diretorio = models.ImageField(_('Image'), default='posts/default.jpg', upload_to=upload_path)
     updated_at = models.DateTimeField(auto_now=True)

@@ -22,15 +22,10 @@ class Profile(mo.Model):
     nome = mo.CharField(max_length=20)
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
-    cnh = mo.IntegerField(null=True)
+    cnh = mo.CharField(max_length=11 , blank=True, default='')
     diretorio = mo. ImageField(blank=False,
                                upload_to=upload_path)
     senha = mo.CharField(max_length=50, default='*********')
-    # gender = mo.CharField(
-    #     max_length=12, choices=Genero.choices, default='Genero.M')
-    # tipos = mo.CharField(max_length=12, choices=Tipos.choices,
-    #                      default='Tipos.Passageiro')
-    # matricula = mo.IntegerField()
-    # idade = mo.IntegerField()
+
     def __str__(self):
         return self.nome
