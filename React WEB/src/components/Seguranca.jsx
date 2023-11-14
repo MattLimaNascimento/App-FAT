@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import style from './SCSS/Modal.module.css';
 import FormGeneric from './form';
 import styles from './SCSS/login_form.module.css';
-import { MdEmail } from 'react-icons/md';
-import { BiSolidLockAlt } from 'react-icons/bi';
+import { FaAddressCard } from "react-icons/fa";
+import { FaCarSide } from "react-icons/fa";
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import Button_p from './button';
 import styled from 'styled-components';
@@ -49,40 +49,38 @@ const Seguranca = ({activateTela , Change}) => {
         alert('Função esqueceu senha!');
     };
 
+    const h2_style = {
+        width: '300px',
+        top: '5px',
+        left: '55%'
+    }
+
     return (
         <SegurancaMenu tela={activateTela}>
             <div className="seguranca">
                 <div className={style.container_wrapper}>
                     <div className={style.wrapper3}>
                         <div className={styles.form_box}>
-                            <h2>Login</h2>
+                            <h2 style={h2_style}>Seja um Motorista!</h2>
                             <FormGeneric act={'#'}>
                                 <div className={styles.input_box}>
-                                    <span className={styles.icon}><MdEmail /></span>
+                                    <span className={styles.icon}><FaAddressCard /></span>
                                     <input type="email" id="email_entrada" onChange={handleInputEmail} required />
-                                    <label>Email</label>
+                                    <label>N° Registro (CNH)</label>
                                 </div>
                                 <div className={styles.input_box}>
                                     <span className={styles.icon}>
-                                        <div onClick={() => setpass(!pass)} className={styles.eyes}>
-                                            <VscEyeClosed style={eyes} className='closed' />
-                                            <VscEye className={styles.open} />
-                                        </div>
-                                        <BiSolidLockAlt />
+                                        <FaCarSide />
                                     </span>
-                                    <input type={pass ? "text" : "password"} id="senha_entrada" onChange={handleInputPassWord} required />
-                                    <label>Senha</label>
-                                </div>
-                                <div className={styles.remember_forgot}>
-                                    <label><input type="checkbox" id="checkbox" />Lembre-se de mim</label>
-                                    <a href="#" onClick={forgotPassword}>Esqueceu sua Senha?</a>
+                                    <input type="text"  id="senha_entrada" onChange={handleInputPassWord} required />
+                                    <label>Placa do Carro</label>
                                 </div>
                                 <Button_p action={handleAddTaskClick} nome={styles.btn_1}>
-                                    <div className="login-name">Login</div>
+                                    <div className="login-name">Cadastrar</div>
                                     {/* <div className="loading login">Loading</div> */}
                                 </Button_p>
                                 <div className={styles.login_register}>
-                                    <p>Já possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click())} className="register-link">Registrar</a></p>
+                                    <p>Ainda não possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click(), document.getElementById('Caroneiro').click())} className="register-link">Registrar</a></p>
                                 </div>
                             </FormGeneric>
                         </div>

@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djoserauthapi.urls'
+ROOT_URLCONF = 'appfat.urls'
 
 TEMPLATES = [
     {
@@ -64,7 +64,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djoserauthapi.wsgi.application'
+WSGI_APPLICATION = 'appfat.wsgi.application'
 
 
 # Database
