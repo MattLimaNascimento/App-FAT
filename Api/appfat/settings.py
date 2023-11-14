@@ -58,12 +58,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     "corsheaders.middleware.CorsMiddleware"
+    "corsheaders.middleware.CorsMiddleware"
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    
+
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -181,7 +181,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # numeros de objetos por pagina
-     'PAGE_SIZE': 5,
+    'PAGE_SIZE': 5,
 
     # 'DEFAULT_THROTTLE_CLASSES': (
     #     # 'rest_framework.throttling.UserRateThrottle',
@@ -196,7 +196,7 @@ REST_FRAMEWORK = {
     #     # autentificação via Token:
     #     # 'rest_framework.authentication.TokenAuthentication',
     # ),
-       
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -205,29 +205,29 @@ REST_FRAMEWORK = {
 
 # jwt access TOKEN time configuration
 
-SIMPLE_JWT ={
+SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS':True,
+    'ROTATE_REFRESH_TOKENS': True,
     "UPDATE_LAST_LOGIN": True,
 }
 
 # Djoser Settings
 DJOSER = {
     'LOGIN_FIELD': 'email',
-    'USER_CREATE_PASSWORD_RETYPE':True,
-    'ACTIVATION_URL':'/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL':True,
-    'SEND_CONFIRMATION_EMAIL':True,
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'ACTIVATION_URL': '/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'TOKEN_MODEL': None,       # To Delete User Must Set it to None
-    'SERIALIZERS':{
-        'user_create': 'rides.api.serializers.UserSerialier',
-        'user': 'rides.api.serializers.UserSerialier',
+    'SERIALIZERS': {
+        'user_create': 'rides.api.serializers.UserSerializer',
+        'user': 'rides.api.serializers.UserSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
     'EMAIL': {

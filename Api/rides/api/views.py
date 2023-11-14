@@ -10,21 +10,22 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework import serializers
 
-from accounts.models import Profile
+from accounts.models import User
 from rides.models import Ride
-from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
-from django.contrib.auth.models import User
-from.validators import cnh_valido
+from .serializers import RidesSerializer, UserSerializer
+
+
 """
 API de Rides (v1)
 """
+
 
 @api_view(['GET'])
 def get_routes(request):
     routes = [
         {
             'Endpoint': '/rides/api/profiles/',
-            'method': 'GET','POST'
+            'method': 'GET', 'POST'
             'usuario': None,
             'email': None,
             'senha': None,
@@ -33,7 +34,7 @@ def get_routes(request):
         },
         {
             'Endpoint': '/rides/api/profiles/<int:pk>',
-            'method': 'GET','PUT'
+            'method': 'GET', 'PUT'
             'usuario': None,
             'email': None,
             'senha': None,
@@ -42,8 +43,8 @@ def get_routes(request):
         },
         {
             'Endpoint': '/rides/api/rides/<int:pk>',
-            'method': 'GET','PUT'
-            'usuario':None,
+            'method': 'GET', 'PUT'
+            'usuario': None,
             'email': None,
             'senha': None,
             'diretorio': None,
@@ -51,16 +52,17 @@ def get_routes(request):
         },
         {
             'Endpoint': '/rides/api/rides/',
-            'method': 'GET','POST'
+            'method': 'GET', 'POST'
             'usuario': None,
             'email': None,
             'senha': None,
-            'diretorio':None,
+            'diretorio': None,
             'description': 'Retorna lista de caronas e permite postar nova.'
         },
-        
+
     ]
     return Response(routes)
+
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
@@ -85,6 +87,7 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
 
 class RideDetailAPIView(generics.GenericAPIView,
                         mixins.RetrieveModelMixin,
@@ -115,13 +118,11 @@ API de Perfis (v1)
 
 class ProfilesAPIView(generics.ListCreateAPIView):
 
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     def post(self, request,):
         data = request.data
-        if not cnh_valido(data['cnh']):
-            raise serializers.ValidationError('CNH inválido!')
         new_profile = Profile.objects.create(
             user=User.objects.get(pk=data['user']),
             nome=data['nome'],
@@ -131,7 +132,7 @@ class ProfilesAPIView(generics.ListCreateAPIView):
             placa_carro=data['placa_carro'],
             diretorio=data['diretorio']
         )
-        serializer = ProfileSerializer(new_profile, many=False)
+        serializer = UserSerializer(new_profile, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request, *args, **kwargs):
@@ -143,8 +144,8 @@ class ProfileDetailAPIView(
         mixins.RetrieveModelMixin,
         mixins.UpdateModelMixin,
         mixins.DestroyModelMixin):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     lookup_field = 'pk'
 
@@ -156,19 +157,3 @@ class ProfileDetailAPIView(
 
     def delete(self, request, *args, **Kwargs):
         return self.destroy(request, *args, **Kwargs)
-
-
-
-# Autentificação para user logado
-class UserDetailAPIView(generics.RetrieveAPIView):
-    
-    """
-    endpoint para pegar informaçôes do user logado
-    
-    """
-    
-    permission_classes =[IsAuthenticated]
-    serializer_class = UserSerialier
-    
-    def get_object(self):
-        return self.request.user
