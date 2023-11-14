@@ -1,41 +1,16 @@
     # DRF
 from rest_framework.views import APIView
 from rest_framework.response import Response
-<<<<<<< HEAD
-from rest_framework import generics, mixins,viewsets,filters
-from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import action
-from rest_framework import status
-from rest_framework.decorators import api_view
-<<<<<<< HEAD
-from django_filters.rest_framework import DjangoFilterBackend
-=======
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
-from rest_framework import serializers
-=======
 from rest_framework import generics, mixins
 from rest_framework import status
 from rest_framework.decorators import api_view
->>>>>>> origin/Matheus-Branch
 
 from accounts.models import Profile
 from rides.models import Ride
 from .serializers import RidesSerializer
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-<<<<<<< HEAD
-from . validators import cnh_valido
-
-
-
-=======
-from.validators import cnh_valido
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
-=======
 from django.http import Http404
 
->>>>>>> origin/Matheus-Branch
 """
 API de Rides (v1)
 """
@@ -95,10 +70,8 @@ class RidesAPIView(generics.ListCreateAPIView):
 }
 
     """
-    serializer_class = RidesSerializer
     queryset = Ride.objects.all()
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    search_fields = ['motorista','passageiros']
+    serializer_class = RidesSerializer
 
     # listar Rides  -> request GET
 
@@ -109,31 +82,32 @@ class RidesAPIView(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class RideDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+class RideDetailAPIView(generics.GenericAPIView,
+                        mixins.RetrieveModelMixin,
+                        mixins.DestroyModelMixin,
+                        mixins.UpdateModelMixin
+                        ):
 
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
+
     lookup_field = 'pk'
 
-    def get_object(self):
-        if self.kwargs.get('Rides_pk'):
-            return get_object_or_404(self.get_queryset(), carona_id=self.kwargs.get('Rides_pk'),
-                                     pk=self.kwargs.get('profile_pk'))
-        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('profile_pk'))
+    def delete(self, request, *args, **Kwargs):
+        return self.destroy(request, *args, **Kwargs)
 
+    def get(self, request, *args, **Kwargs):
+        return self.retrieve(request, *args, **Kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 class ManagePassenger(APIView):
     def patch(self, request, ride_id, *args, **kwargs):
         return self.manage_passenger(request, ride_id, "Adicionar")
 
-<<<<<<< HEAD
-"""
-API de Perfis 
-=======
     def post(self, request, ride_id, *args, **kwargs):
         return self.manage_passenger(request, ride_id, "Remover")
->>>>>>> origin/Matheus-Branch
 
     def manage_passenger(self, request, ride_id, tipo):
         profile_id = request.data.get('id')
@@ -149,79 +123,6 @@ API de Perfis
         except Profile.DoesNotExist:
             raise Http404('Profile not found')
 
-<<<<<<< HEAD
-    serializer_class = ProfileSerializer
-    queryset = Profile.objects.all()
-    filter_backends = [DjangoFilterBackend,filters.OrderingFilter,filters.SearchFilter]
-    search_fields = ['nome','email']
-    ordering_fields = ['nome']
-
-
-    def post(self, request,):
-        data = request.data
-<<<<<<< HEAD
-        print(data['cnh'])
-        if not cnh_valido(data['cnh']):
-            raise serializers.ValidationError('CNH invalido !')
-=======
-        if not cnh_valido(data['cnh']):
-            raise serializers.ValidationError('CNH inválido!')
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
-        new_profile = Profile.objects.create(
-            user=User.objects.get(pk=data['user']),
-            nome=data['nome'],
-            email=data['email'],
-            senha=data['senha'],
-            cnh=data['cnh'],
-            placa_carro=data['placa_carro'],
-            diretorio=data['diretorio']
-        )
-        serializer = ProfileSerializer(new_profile, many=False)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-    
-       
-        
-class ProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-    lookup_field = 'pk'
-
-<<<<<<< HEAD
-    def get_object(self):
-        if self.kwargs.get('Rides_pk'):
-            return get_object_or_404(self.get_queryset(), perfil_id=self.kwargs.get('profiles_pk'),
-                                     pk=self.kwargs.get('profile_pk'))
-        return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('profile_pk'))
-=======
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **Kwargs):
-        return self.destroy(request, *args, **Kwargs)
-
-
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
-
-# Autentificação para user logado
-class UserDetailAPIView(generics.RetrieveAPIView):
-    
-    """
-    endpoint para pegar informaçôes do user logado
-    
-    """
-    
-    permission_classes =[IsAuthenticated]
-    serializer_class = UserSerialier
-    
-    def get_object(self):
-        return self.request.user
-=======
         if tipo == "Adicionar":
             # Adiciona o perfil como passageiro à Ride
             ride.passageiros.add(profile)
@@ -233,4 +134,3 @@ class UserDetailAPIView(generics.RetrieveAPIView):
 
         serializer = RidesSerializer(ride)
         return Response(serializer.data, status=status.HTTP_200_OK)
->>>>>>> origin/Matheus-Branch

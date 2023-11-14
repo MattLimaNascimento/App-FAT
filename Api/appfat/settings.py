@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'django_filters',
-    'djoser',
-    'rest_framework.authtoken'
+    
+    
    
 ]
 
@@ -119,10 +119,7 @@ DATABASES = {
     }
 }
 
-<<<<<<< HEAD
-=======
 # Email Configuration
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -180,21 +177,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-<<<<<<< HEAD
+
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-<<<<<<< HEAD
+
         #'rest_framework.permissions.IsAuthenticated'
-=======
+
         # 'rest_framework.permissions.IsAuthenticated',
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
+
     ],
-=======
+
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     #     'rest_framework.permissions.IsAuthenticated',
     # ],
->>>>>>> origin/Matheus-Branch
+
 
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -207,15 +204,6 @@ REST_FRAMEWORK = {
     # ),
     # 'DEFAULT_THROTTLE_RATES': { 'Anon': '5/minute','User': '10/minute' },
 
-<<<<<<< HEAD
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # autentificação para iniciar sessão:
-         'rest_framework.authentication.SessionAuthentication',
-
-        # autentificação via Token:
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-=======
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     # autentificação para iniciar sessão:
     #     # 'rest_framework.authentication.SessionAuthentication',
@@ -223,19 +211,11 @@ REST_FRAMEWORK = {
     #     # autentificação via Token:
     #     # 'rest_framework.authentication.TokenAuthentication',
     # ),
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
        
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
-<<<<<<< HEAD
-    
-    'DEFAULT_FILTER_BACKENDS': 'django_filters.rest_framework.DjangoFilterBackend',
-
-
-=======
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 }
 
 # jwt access TOKEN time configuration
@@ -243,22 +223,12 @@ REST_FRAMEWORK = {
 SIMPLE_JWT ={
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-<<<<<<< HEAD
-    'REFRESH_TOKEN_LIFETIME':timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS':True,
-    'UPDATE_LAST_LOGIN': True,
-    'AUTH_HEADER_TYPES': ('JWT',),
-}
-
-# Djoser Settings 
-=======
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
     'ROTATE_REFRESH_TOKENS':True,
     "UPDATE_LAST_LOGIN": True,
 }
 
 # Djoser Settings
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE':True,
@@ -269,20 +239,6 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-<<<<<<< HEAD
-    'SERIALIZER':{
-        'user_create': 'rides.api.serializers.ProfileSerializer',
-    },
-    'EMAIL': {
-        'activation': 'accounts.email.ActivationEmail',
-        'confirmation': 'accounts.email.ConfirmationEmail',
-        'password_reset': 'accounts.email.PasswordResetEmail',
-        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
-    },
-
-}
-
-=======
     'TOKEN_MODEL': None,       # To Delete User Must Set it to None
     'SERIALIZERS':{
         'user_create': 'rides.api.serializers.UserSerialier',
@@ -296,4 +252,3 @@ DJOSER = {
         'password_changed_confirmation': 'rides.api.email.PasswordChangedConfirmationEmail',
     },
 }
->>>>>>> 0200b675b32c09ce2c1597c7cfb6a4f11829f419

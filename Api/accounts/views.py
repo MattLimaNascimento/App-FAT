@@ -10,18 +10,7 @@ from django.contrib.auth.models import User
 from validate_docbr import CNH
 
 
-<<<<<<< HEAD
-def cadastro_view(request):
-    if request.method == 'POST':
-        try:  # verificar se usuario ja existe!
-            user = User.objects.get(request.POST['username'])
-        except:  # se nao existir usuario, cria usuario puxando dados inseridos no frontend !
-            user = User.objects.create_user(
-                request.POST['username'], password=request.POST['password'],email=request.POST['email'],diretorio=request.POST['diretorio'])
-            auth.login(request, user)
-=======
 class ProfilesAPIView(generics.ListCreateAPIView):
->>>>>>> origin/Matheus-Branch
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -51,22 +40,6 @@ class ProfilesAPIView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-def cadastro_driver_view(request):
-    if request.method == 'POST':
-        try:
-            user = User.objects.get(request.POST['username'])
-        except:
-            user = User.objects.create_user(request.POST['username'],
-                                            password=request.POST['password'],
-                                            email=request.POST['email'],
-                                            diretorio=request.POST['diretorio'],
-                                            cnh=request.POST['cnh'],
-                                            placa_carro=request.POST['placa_carro'])
-            auth.login(request,user)
-
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            
-            
 
 class ProfileDetailAPIView(
         generics.GenericAPIView,
