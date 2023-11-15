@@ -36,7 +36,20 @@ admin.site.register(User, UserModelAdmin)
 
 class RideAdmin(admin.ModelAdmin):
     list_display = ('motorista', 'data_publicaçao',
+<<<<<<< HEAD
                     'data_saida', 'origem', 'destino', 'preço', 'veiculo')
 
 
 admin.site.register(Ride, RideAdmin)
+=======
+                    'data_saida', 'origem','destino','preço','veiculo')
+    list_filter = ('motorista',)
+    search_fields = ('motorista','veiculo')
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'nome', 'email', 'placa_carro', 'cnh', 'diretorio')
+    list_filter = ('nome','email','cnh')
+    search_fields = ('nome','email')
+>>>>>>> Pedro-Branch
