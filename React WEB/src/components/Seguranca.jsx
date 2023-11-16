@@ -22,6 +22,15 @@ const SegurancaMenu = styled.div`
         transform: ${prop => prop.tela ? 'translateY(0)' : 'translateY(-200%)'};
     }
 `
+const Menu2_Style = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateX(100%);
+    transition: transform 1s ease;
+`
 
 const Menu2 = ({ activateTela, Change }) => {
     const [InputCNH, setInputCNH] = useState();
@@ -55,6 +64,13 @@ const Menu2 = ({ activateTela, Change }) => {
             .catch((err) => console.error(err));
     };
 
+    const h1_style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    }
+
     const h2_style = {
         width: '300px',
         top: '5px',
@@ -75,43 +91,43 @@ const Menu2 = ({ activateTela, Change }) => {
     return (
 
         <>
-        {Changewindow ? (
-            <h1>Hello, world!</h1>
-        ) : (
-            <SegurancaMenu tela={activateTela}>
-                <div className="seguranca">
-                    <div className={style.container_wrapper}>
-                        <div className={style.wrapper3}>
-                            <div className={styles.form_box}>
-                                <h2 style={h2_style}>Seja um Motorista!</h2>
-                                <FormGeneric act={'#'}>
-                                    <div className={styles.input_box}>
-                                        <span className={styles.icon}><FaAddressCard /></span>
-                                        <input type="number" id="email_entrada" onChange={handleInputCNH} required />
-                                        <label>N° Registro (CNH)</label>
-                                    </div>
-                                    <div className={styles.input_box}>
-                                        <span className={styles.icon}>
-                                            <FaCarSide />
-                                        </span>
-                                        <input type="text" id="senha_entrada" onChange={handleInputPlaca_Carro} required />
-                                        <label>Placa do Carro</label>
-                                    </div>
-                                    <Button_p action={handleAddTaskClick} nome={styles.btn_1}>
-                                        <div className="login-name">Cadastrar</div>
-                                        {/* <div className="loading login">Loading</div> */}
-                                    </Button_p>
-                                    <div className={styles.login_register}>
-                                        <p>Ainda não possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click(), document.getElementById('Caroneiro').click())} className="register-link">Registrar</a></p>
-                                    </div>
-                                </FormGeneric>
-                            </div>
+            {Changewindow ? (
+                <h1 style={h1_style}>Hello, world!</h1>
+            ) : (
+                <SegurancaMenu tela={activateTela}>
+                    <div className="seguranca">
+                        <div className={style.container_wrapper}>
+                            <div className={style.wrapper3}>
+                                <div className={styles.form_box}>
+                                    <h2 style={h2_style}>Seja um Motorista!</h2>
+                                    <FormGeneric act={'#'}>
+                                        <div className={styles.input_box}>
+                                            <span className={styles.icon}><FaAddressCard /></span>
+                                            <input type="number" id="email_entrada" onChange={handleInputCNH} required />
+                                            <label>N° Registro (CNH)</label>
+                                        </div>
+                                        <div className={styles.input_box}>
+                                            <span className={styles.icon}>
+                                                <FaCarSide />
+                                            </span>
+                                            <input type="text" id="senha_entrada" onChange={handleInputPlaca_Carro} required />
+                                            <label>Placa do Carro</label>
+                                        </div>
+                                        <Button_p action={handleAddTaskClick} nome={styles.btn_1}>
+                                            <div className="login-name">Cadastrar</div>
+                                            {/* <div className="loading login">Loading</div> */}
+                                        </Button_p>
+                                        <div className={styles.login_register}>
+                                            <p>Ainda não possui uma conta? <a onClick={() => (Change(false), document.getElementById('tela1').click(), document.getElementById('Caroneiro').click())} className="register-link">Registrar</a></p>
+                                        </div>
+                                    </FormGeneric>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </SegurancaMenu>
-        )}
+                </SegurancaMenu>
+            )}
         </>
 
     );
