@@ -12,8 +12,21 @@ class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
         def get_nome_usuario(self, obj):
             return obj.nome.username
 
+class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'diretorio']
+
 class RidesSerializer(serializers.ModelSerializer):
     passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
+    motorista = CarregaFotoMotoristaSerializer(read_only=True)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        motorista_data = representation['motorista']
+        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio']]
+        return representation
+    
    # passageiros_id = serializers.PrimaryKeyRelatedField(
     #     many=True,
     #     read_only=False,
