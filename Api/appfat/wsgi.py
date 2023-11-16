@@ -1,5 +1,5 @@
 """
-WSGI config for appfat project.
+WSGI config for djoserauthapi project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

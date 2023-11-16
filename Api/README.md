@@ -1,38 +1,16 @@
-# App Caronas
+## Django REST Framework Complete Authentication API with Djoser
+### Video Link:- https://youtu.be/_IKk553cH2s
 
-- [Instalação](#instalação)
-- [API](#api)
+## To Run this Project follow below:
 
-***
+```bash
+mkvirtualenv venv
+venv\scripts\activate
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
 
-## Instalação
+#### There is a File "DjoserAuth.postman_collection" which has Postman Collection You can import this file in your postman to test this API
 
-* Cria uma pasta. Ex: `app-fat`.
-* Baixe os arquivos repositório. Ex: `git clone https://github.com/UERJ-LIVIA/app-fat-carona`.
-* Crie um ambiente virtual: `python3 -m venv env` (ou `python -m venv env`).
-* Ative o ambiente virtual: `source env/bin/activate`.
-* Entre na pasta do repositório. Ex: `cd app-fat-carona`.
-* Instale as dependências: `pip install -r requirements.txt`.
-* Inicie o site: `python manage.py runserver 8000`.
-
-***
-
-## API
-
-### Exemplo
-
-`GET /api/example/` - Criar um objeto de exemplo.
-
-| Parâmetro | Tipo |
-|-|-|
-| text | String |
-| pubdate | Date "YYYY-MM-DD" (na ausência) |
-
-Exemplo de envio:
-  ```
-    {
-        "text": "Teste",
-    }
-  ```
-
-`POST /api/example/` - Recuperar todos os objetos de exemplo. Não precisa de argumentos.
