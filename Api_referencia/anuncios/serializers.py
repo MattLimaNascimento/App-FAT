@@ -34,6 +34,11 @@ class RidesSerializer(serializers.ModelSerializer):
             instance.passageiros.add(passageiro)
         return instance
 
+class UserRidesSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = Ride
+        fields = "__all__"
+
 class UserSerialier(serializers.ModelSerializer):
     class Meta:
         model = User

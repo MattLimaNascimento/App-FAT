@@ -5,7 +5,7 @@ from rest_framework import generics, mixins
 from rest_framework import status
 
 from anuncios.models import Ride
-from .serializers import RidesSerializer
+from .serializers import RidesSerializer, UserRidesSerializer
 from accounts.models import User
 from django.http import Http404
 
@@ -87,3 +87,12 @@ class ManagePassenger(APIView):
 
         serializer = RidesSerializer(ride)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class UserRidesListView(generics.ListAPIView):
+     
+    serializer_class = UserRidesSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return Ride.objects.filter(passageiros__id=user_id)
+            
