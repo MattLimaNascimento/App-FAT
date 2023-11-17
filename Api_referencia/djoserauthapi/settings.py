@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'djoser',
     "corsheaders",
     "accounts",
-    "anuncios",
+    "anuncios",   
+    
 ]
 
 MIDDLEWARE = [
@@ -44,7 +45,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+# INTERNAL_IPS = [
+#     # Adicione o seu IP aqui para ativar a toolbar
+#     '127.0.0.1',
+# ]
+
+
+# DEBUG_TOOLBAR_CONFIG = {
+#     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG and request.META['REMOTE_ADDR'] in INTERNAL_IPS,
+# }
 
 ROOT_URLCONF = 'djoserauthapi.urls'
 
@@ -183,3 +195,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
 ]
+
+
+
+

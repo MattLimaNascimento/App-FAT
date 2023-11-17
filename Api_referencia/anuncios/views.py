@@ -9,7 +9,7 @@ from .serializers import RidesSerializer, UserRidesSerializer
 from accounts.models import User
 from django.http import Http404
 
-# Create your views here.
+
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
@@ -96,3 +96,4 @@ class UserRidesListView(generics.ListAPIView):
         user_id = self.kwargs['user_id']
         return Ride.objects.filter(passageiros__id=user_id)
             
+

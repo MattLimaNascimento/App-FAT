@@ -21,11 +21,7 @@ class RidesSerializer(serializers.ModelSerializer):
     passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
     motorista = CarregaFotoMotoristaSerializer(read_only=True)
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        motorista_data = representation['motorista']
-        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio']]
-        return representation
+    
     
    # passageiros_id = serializers.PrimaryKeyRelatedField(
     #     many=True,
