@@ -5,7 +5,8 @@ import style from './SCSS/Menu1.module.css'
 
 const Menu1 = ({ tela }) => {
     const menu1Style = {
-        transform: tela? 'translateX(-150%)':'translateX(0)'
+        transform: tela ? 'translateX(-150%) ' : 'translateX(0)',
+        overflow: tela ? 'hidden' : 'visible'
     }
     return (
         <div className={style.menu1} style={menu1Style}>
@@ -13,7 +14,7 @@ const Menu1 = ({ tela }) => {
                 <Days_menu />
             </header>
             <Anuncios_Caronas />
-        </div>    
+        </div>
 
     );
 }

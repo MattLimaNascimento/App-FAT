@@ -7,8 +7,14 @@ import Menus from '../../components/Menus';
 import Menu1 from '../../components/Menu1';
 import Menu2 from '../../components/seguranca';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components'
 
-
+const Main = styled.main`
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+`
 const Pag_principal = () => {
     const [ChangeSecurity, setChangeSecurity] = useState(false);
     const history = useNavigate();
@@ -26,18 +32,18 @@ const Pag_principal = () => {
         UserData[chave] = valor;
     }
     return (
-        <div className="conteudo">
+        <>
             <Header >
                 <B_car_fat />
                 <Menus />
                 <Menu_Princ tela={setChangeSecurity} />
                 <User_Imag Image={UserData.diretorio} Nome={UserData.name} Email={UserData.email}/>
             </Header>
-            <main>
+            <Main>
                 <Menu1 Change={setChangeSecurity} tela={ChangeSecurity} />
                 <Menu2 Change={setChangeSecurity} activateTela={ChangeSecurity} />
-            </main>
-        </div>
+            </Main>
+        </>
     );
 }
 
