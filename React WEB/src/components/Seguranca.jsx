@@ -437,9 +437,9 @@ const Menu2 = ({ activateTela, Change }) => {
                                 <div className="times">
                                     <div id="time1">
                                         <label >
-                                            <>
-                                                Horário da Carona
-                                            </>
+                                           <>
+                                           Horário da Carona
+                                           </> 
                                         </label>
                                         <Input
                                             type="time"

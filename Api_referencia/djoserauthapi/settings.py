@@ -30,18 +30,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-<<<<<<< HEAD
     "corsheaders",
-    "account",
+    "accounts",
     "anuncios",
-=======
-    'corsheaders',
-    'rest_framework_simplejwt',
-    'django_filters',
-    
-    
-   
->>>>>>> origin/Pedro-Branch
 ]
 
 MIDDLEWARE = [
@@ -53,13 +44,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
-=======
-    "corsheaders.middleware.CorsMiddleware"
->>>>>>> origin/Pedro-Branch
 ]
 
-ROOT_URLCONF = 'appfat.urls'
+ROOT_URLCONF = 'djoserauthapi.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +64,7 @@ TEMPLATES = [
     },
 ]
 
-
+WSGI_APPLICATION = 'djoserauthapi.wsgi.application'
 
 
 # Database
@@ -143,41 +130,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 # JWT Configuration
 REST_FRAMEWORK = {
-<<<<<<< HEAD
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
-=======
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-
-        #'rest_framework.permissions.IsAuthenticated'
-
-        # 'rest_framework.permissions.IsAuthenticated',
-
-    ],
-
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-
-
-
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # numeros de objetos por pagina
-     'PAGE_SIZE': 5,
-
-    # 'DEFAULT_THROTTLE_CLASSES': (
-    #     # 'rest_framework.throttling.UserRateThrottle',
-    #     # 'rest_framework.throttling.AnonRateThrottle'
->>>>>>> origin/Pedro-Branch
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -208,23 +166,20 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SERIALIZERS':{
-        'user_create': 'account.serializers.UserCreateSerializer',
-        'user': 'account.serializers.UserCreateSerializer',
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+        'user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
     'EMAIL': {
-        'activation': 'account.email.ActivationEmail',
-        'confirmation': 'account.email.ConfirmationEmail',
-        'password_reset': 'account.email.PasswordResetEmail',
-        'password_changed_confirmation': 'account.email.PasswordChangedConfirmationEmail',
+        'activation': 'accounts.email.ActivationEmail',
+        'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
     },
 }
-<<<<<<< HEAD
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
 ]
-=======
->>>>>>> origin/Pedro-Branch
