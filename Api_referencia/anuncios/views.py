@@ -11,18 +11,7 @@ from django.http import Http404
 
 
 
-class RidesAPIView(generics.ListCreateAPIView):
-    """
-    Listar Rides mediante filtro
-    Ref POST : (RAW)
-    {
-    "modalidade": "CARONA",
-    "motorista": 7,
-    "data_saida": "2023-09-20T14:45:00Z",
-    "info": "Teste"
-}
-
-    """
+class RidesAPIView(generics.ListCreateAPIView):     
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
 
@@ -95,5 +84,5 @@ class UserRidesListView(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         return Ride.objects.filter(passageiros__id=user_id)
-            
+
 

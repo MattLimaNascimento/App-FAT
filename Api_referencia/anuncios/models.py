@@ -10,17 +10,22 @@ class Ride(mo.Model):
         UBER = 'UBER', _('Uber')
     
     class Veiculo(mo.TextChoices):
-        CARRO = 'CARRO',_('Carro')
-        MOTO = 'MOTO',_('Moto')
+        CARRO = 'Carro',_('Carro')
+        MOTO = 'Moto',_('Moto')
 
     motorista = mo.ForeignKey(
         User, on_delete=mo.CASCADE, related_name='driver', blank=True, null=True
     )
     passageiros = mo.ManyToManyField(User, related_name='passenger', blank=True)
     data_publicaçao = mo.DateTimeField(default=datetime.now)
-    data_saida = mo.DateTimeField(default=datetime.now)
+    hora_saida = mo.TimeField(default='00:00')
     origem = mo.TextField(max_length=50, default='FAT')
     destino = mo.TextField(max_length=50, default='Centro')
     preço = mo.IntegerField(default=4.00)
     veiculo = mo.TextField(max_length=10, choices=Veiculo.choices, default='Veiculo.CARRO')
     modalidade = mo.CharField(max_length=12, choices=Modalidade.choices, default='Modalidade.CARONA')
+    def __str__(self):
+        if self.motorista is not None:
+            return f"{self.motorista} e Passageiros: {', '.join([str(p) for p in self.passageiros.all()])}"
+        else:
+            return "Ride sem motorista"

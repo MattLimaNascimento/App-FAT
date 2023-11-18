@@ -1,6 +1,5 @@
 from accounts.models import User
 from anuncios.models import Ride
-# from django.contrib.auth.models import User
 from rest_framework import serializers
 
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
@@ -18,22 +17,13 @@ class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
         fields = ['id', 'diretorio']
 
 class RidesSerializer(serializers.ModelSerializer):
-    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
     motorista = CarregaFotoMotoristaSerializer(read_only=True)
-
-    
-    
-   # passageiros_id = serializers.PrimaryKeyRelatedField(
-    #     many=True,
-    #     read_only=False,
-    #     queryset=User.objects.all(),
-    #     source='passageiros'
-    # )
+    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
 
     class Meta:
         model = Ride
         fields = ['id','motorista', 'passageiros', 'data_publicaçao',
-                  'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+                  'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
 
     def update(self, instance, validated_data):
         passageiros = validated_data.pop('passageiros')
@@ -60,7 +50,7 @@ class UserRidesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ride
         fields = ['motorista', 'passageiros', 'data_publicaçao',
-                  'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+                  'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
 
 class UserSerialier(serializers.ModelSerializer):
     class Meta:
