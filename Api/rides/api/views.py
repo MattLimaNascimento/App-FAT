@@ -3,13 +3,60 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework import status
+from rest_framework.decorators import api_view
 
-from anuncios.models import Ride
-from .serializers import RidesSerializer, UserRidesSerializer
-from accounts.models import User
+from accounts.models import Profile
+from rides.models import Ride
+from .serializers import RidesSerializer
+from django.contrib.auth.models import User
 from django.http import Http404
 
+"""
+API de Rides (v1)
+"""
 
+@api_view(['GET'])
+def get_routes(request):
+    routes = [
+        {
+            'Endpoint': '/rides/api/profiles/',
+            'method': 'GET','POST'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna uma lista de perfis'
+        },
+        {
+            'Endpoint': '/rides/api/profiles/<int:pk>',
+            'method': 'GET','PUT'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna um único perfil.Permite alterar algum campo deste'
+        },
+        {
+            'Endpoint': '/rides/api/rides/<int:pk>',
+            'method': 'GET','PUT'
+            'usuario':None,
+            'email': None,
+            'senha': None,
+            'diretorio': None,
+            'description': 'Retorna carona especifica por meio do id e altualiza dados desta '
+        },
+        {
+            'Endpoint': '/rides/api/rides/',
+            'method': 'GET','POST'
+            'usuario': None,
+            'email': None,
+            'senha': None,
+            'diretorio':None,
+            'description': 'Retorna lista de caronas e permite postar nova.'
+        },
+        
+    ]
+    return Response(routes)
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
@@ -70,10 +117,10 @@ class ManagePassenger(APIView):
 
         try:
             ride = Ride.objects.get(id=ride_id)
-            profile = User.objects.get(id=profile_id)
+            profile = Profile.objects.get(id=profile_id)
         except Ride.DoesNotExist:
             raise Http404('Ride not found')
-        except User.DoesNotExist:
+        except Profile.DoesNotExist:
             raise Http404('Profile not found')
 
         if tipo == "Adicionar":
@@ -87,13 +134,3 @@ class ManagePassenger(APIView):
 
         serializer = RidesSerializer(ride)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-class UserRidesListView(generics.ListAPIView):
-     
-    serializer_class = UserRidesSerializer
-
-    def get_queryset(self):
-        user_id = self.kwargs['user_id']
-        return Ride.objects.filter(passageiros__id=user_id)
-            
-
