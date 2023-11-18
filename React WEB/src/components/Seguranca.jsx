@@ -10,16 +10,16 @@ import axios from 'axios';
 
 const SegurancaMenu = styled.div`
     .seguranca{
-        position: absolute;
-        top: 0;
         display: flex;
         justify-content: center;
-        width: 100%;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
         height: 100%;
+        width: 100%;
         transition: transform 1s ease, height .2s ease;
-        overflow: hidden;
-        opacity: 1;
-        transform: ${prop => prop.tela ? 'translateY(0)' : 'translateY(-200%)'};
+        transform: ${prop => (prop.tela ? 'translateY(0)' : 'translateY(-200%)')};
     }
 `
 const Menu2_Style = styled.div`
@@ -29,7 +29,7 @@ const Menu2_Style = styled.div`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     height: 100%;
     width: 100%;
@@ -331,11 +331,40 @@ const Menu2 = ({ activateTela, Change }) => {
     };
 
     const handleInputCNH = (e) => {
-        setInputCNH(e.target.value);
+        let inputValue = e.target.value;
+        // Limita o comprimento da placa a 11 caracteres
+        inputValue = inputValue.slice(0, 11);
+
+        setInputCNH(inputValue);
     };
+
     const handleInputPlaca_Carro = (e) => {
-        setInputPlaca_Carro(e.target.value);
+        // Obtém o valor digitado no input
+        let inputValue = e.target.value;
+
+        // Remove todos os caracteres não alfanuméricos
+        inputValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+        // Garante que apenas letras maiúsculas sejam usadas
+        inputValue = inputValue.toUpperCase();
+
+        // Limita o comprimento da placa a 7 caracteres
+        inputValue = inputValue.slice(0, 7);
+
+        // Adiciona hífen após os primeiros três caracteres, se necessário
+        if (inputValue.length > 3) {
+            const primeiraParte = inputValue.slice(0, 3);
+            const ultimosDigitos = inputValue.slice(3);
+
+            // Garante que os últimos dígitos contenham apenas números ou uma letra na segunda posição
+            const regexUltimosDigitos = /^[0-9]+|[A-Z][0-9]*$/;
+            if (regexUltimosDigitos.test(ultimosDigitos.slice(1))) {
+                inputValue = `${primeiraParte}-${ultimosDigitos}`;
+            }
+        }
+        setInputPlaca_Carro(inputValue);
     };
+
     const handleAddTaskClick = async (e) => {
         e.preventDefault();
         const data = {
@@ -352,6 +381,7 @@ const Menu2 = ({ activateTela, Change }) => {
                 if (res.status === 200) {
                     sessionStorage.setItem('cnh', InputCNH);
                     sessionStorage.setItem('placa_carro', InputPlaca_Carro);
+                    alert('Parabéns! Agora você é um motorista!!!');
                     window.location.reload();
                 }
             })
@@ -384,14 +414,32 @@ const Menu2 = ({ activateTela, Change }) => {
     const inputs3 = [
         {}
     ]
-
+    const Subtmit = async (e) => {
+        e.preventDefault();
+        const data = {
+            'hora_saida': timeSegunda,
+            'veiculo':selectedOption,
+            'origem':origin,
+            'destino':destiny,
+            'preco':preco,
+            'qtd_acentos':qtdAcentos,
+            'motorista': 1
+        }
+        axios.post('http://127.0.0.1:8000/anuncios/rides/',data, {
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        })
+            .then(res => console.log(res))
+            .catch(e => console.error(e));
+    }
     return (
         Changewindow ? (
-            <Menu2_Style tela={activateTela}>
+            <Menu2_Style tela={activateTela} >
                 <Container_Style>
                     <div className="form-box anuncio-caronas">
                         <h2>Informações</h2>
-                        <form action="#" onSubmit={'#'}>
+                        <form action="#" onSubmit={Subtmit}>
                             <div className="container_menu2">
                                 <div className="select-box" onClick={() => setChangeCarMoto(!changeCarMoto)}>
                                     <div className={`options-container ${changeCarMoto ? 'active' : ''}`} id="options-container">
@@ -437,9 +485,9 @@ const Menu2 = ({ activateTela, Change }) => {
                                 <div className="times">
                                     <div id="time1">
                                         <label >
-                                           <>
-                                           Horário da Carona
-                                           </> 
+                                            <>
+                                                Horário da Carona
+                                            </>
                                         </label>
                                         <Input
                                             type="time"
@@ -468,7 +516,7 @@ const Menu2 = ({ activateTela, Change }) => {
                 </Container_Style>
             </Menu2_Style>
         ) : (
-            <SegurancaMenu tela={activateTela}>
+            <SegurancaMenu tela={activateTela} >
                 <div className="seguranca">
                     <div className={style.container_wrapper}>
                         <div className={style.wrapper3}>
@@ -477,14 +525,14 @@ const Menu2 = ({ activateTela, Change }) => {
                                 <FormGeneric act={'#'}>
                                     <div className={styles.input_box}>
                                         <span className={styles.icon}><FaAddressCard /></span>
-                                        <input type="number" id="email_entrada" onChange={handleInputCNH} required />
+                                        <input type="number" value={InputCNH} id="email_entrada" onChange={handleInputCNH} required />
                                         <label>N° Registro (CNH)</label>
                                     </div>
                                     <div className={styles.input_box}>
                                         <span className={styles.icon}>
                                             <FaCarSide />
                                         </span>
-                                        <input type="text" id="senha_entrada" onChange={handleInputPlaca_Carro} required />
+                                        <input type="text" value={InputPlaca_Carro} id="senha_entrada" onChange={handleInputPlaca_Carro} required />
                                         <label>Placa do Carro</label>
                                     </div>
                                     <Button_p action={handleAddTaskClick} nome={styles.btn_1}>
