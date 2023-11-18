@@ -6,7 +6,7 @@ from .models import Ride
 class RideAdmin(admin.ModelAdmin):
     
     list_display = ('motorista', 'data_publicaçao',
-                    'data_saida', 'origem','destino','preço','veiculo')
+                    'hora_saida', 'origem','destino','preço','veiculo')
     list_filter = ('motorista',)
     search_fields = ('motorista','veiculo')
     

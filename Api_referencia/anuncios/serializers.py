@@ -5,42 +5,63 @@ from rest_framework import serializers
 
 class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
     class Meta:
-        nome_usuario = serializers.SerializerMethodField()
         model = User
-        fields = ['id', 'name','diretorio', 'email']
+        fields = ['id', 'name','diretorio']
 
         def get_nome_usuario(self, obj):
             return obj.nome.username
 
-class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'diretorio']
+        fields = ['id', 'name', 'diretorio']
 
 class RidesSerializer(serializers.ModelSerializer):
-    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False, read_only=True)
-    motorista = CarregaFotoMotoristaSerializer(read_only=True)
-
-    
-    
-   # passageiros_id = serializers.PrimaryKeyRelatedField(
-    #     many=True,
-    #     read_only=False,
-    #     queryset=User.objects.all(),
-    #     source='passageiros'
-    # )
+    passageiros = UserDetailSerializer(many=True, read_only=True)
+    motorista = UserDetailSerializer(read_only=True)
+    passageiros_id = serializers.PrimaryKeyRelatedField(
+        required=False,
+        many=True,
+        read_only=False,
+        queryset=User.objects.all(),
+        source='passageiros'
+    )
+    motorista_id = serializers.PrimaryKeyRelatedField(
+        read_only=False,
+        queryset=User.objects.all(),
+        source='motorista'
+    )
 
     class Meta:
         model = Ride
-        fields = ['id','motorista', 'passageiros', 'data_publicaçao',
-                  'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+        fields = ['id', 'motorista', 'motorista_id', 'passageiros_id', 'passageiros', 'data_publicaçao',
+                  'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+
+    def to_representation(self, instance):
+        # Remove os campos de ID da representação da API
+        ret = super(RidesSerializer, self).to_representation(instance)
+        ret.pop('passageiros_id', None)
+        ret.pop('motorista_id', None)
+        return ret
 
     def update(self, instance, validated_data):
-        passageiros = validated_data.pop('passageiros')
+        passageiros_data = validated_data.pop('passageiros_id', [])
+        motorista_data = validated_data.pop('motorista_id', None)
+
         instance = super(RidesSerializer, self).update(instance, validated_data)
+
+        # Limpa os passageiros existentes e adiciona os novos
         instance.passageiros.clear()
-        for passageiro in passageiros:
+        for passageiro_data in passageiros_data:
+            passageiro, _ = User.objects.get_or_create(id=passageiro_data.id)
             instance.passageiros.add(passageiro)
+
+        # Atualiza ou cria o motorista
+        if motorista_data:
+            motorista, _ = User.objects.get_or_create(id=motorista_data.id)
+            instance.motorista = motorista
+            instance.save()
+
         return instance
     
 class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
@@ -60,9 +81,4 @@ class UserRidesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ride
         fields = ['motorista', 'passageiros', 'data_publicaçao',
-                  'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
-
-class UserSerialier(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
+                  'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']

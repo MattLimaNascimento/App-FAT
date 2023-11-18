@@ -423,7 +423,7 @@ const Menu2 = ({ activateTela, Change }) => {
             'destino':destiny,
             'preco':preco,
             'qtd_acentos':qtdAcentos,
-            'motorista': 1
+            'motorista_id': sessionStorage.getItem('id')
         }
         axios.post('http://127.0.0.1:8000/anuncios/rides/',data, {
             headers: {
