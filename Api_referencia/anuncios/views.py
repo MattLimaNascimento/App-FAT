@@ -5,6 +5,7 @@ from rest_framework import generics, mixins
 from rest_framework import status
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
 
 
 from anuncios.models import Ride
@@ -14,7 +15,13 @@ from django.http import Http404
 
 
 
+class RideFilter(filters.FilterSet):
+    hora_saida = filters.CharFilter(lookup_expr='icontains')
 
+
+    class Meta:
+        model = Ride
+        fields = ['hora_saida']
 
 
 class RidesAPIView(generics.ListCreateAPIView):
@@ -31,9 +38,10 @@ class RidesAPIView(generics.ListCreateAPIView):
     """
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['motorista','data_saida']
-    # search_fields = ['modalidade','data_saida']  
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['hora_saida']
+    filterset_class = RideFilter
+    
     
   
 
