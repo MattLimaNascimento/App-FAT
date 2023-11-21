@@ -10,7 +10,8 @@ from rest_framework import filters as rf_filters
 from anuncios.models import Ride
 from .serializers import RidesSerializer, UserRidesSerializer
 from accounts.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from .tasks import test_func
 
 
 
@@ -111,5 +112,9 @@ class UserRidesListView(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         return Ride.objects.filter(passageiros__id=user_id)
+    
+def teste(request):
+    test_func.delay()
+    return HttpResponse('Feito')
             
 
