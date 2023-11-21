@@ -205,4 +205,7 @@ CELERY_TIMEZONE = 'UTC'
 
 CELERY_RESULT_BACKEND = 'django-db'
 
+#CEKLERY BEAT 
+CELERY_BEAT_SCHEDULERS = 'django_celery_beat.schedulers:DatabaseScheduler' 
+
 

@@ -13,6 +13,11 @@ app.conf.enable_utc = False
 app.conf.update(timezone='UTC') 
 app.config_from_object(settings, namespace='CELERY')
 
+# celery beat Settings
+app.conf.beat_schedule = {
+    
+}
+
 app.autodiscover_tasks()
 
 @app.task(bind=True)
