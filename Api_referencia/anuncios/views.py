@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework import status
-from  rest_framework import filters
+from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -32,8 +32,9 @@ class RidesAPIView(generics.ListCreateAPIView):
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['motorista']
-    search_fields = ['motorista']  
+    filterset_fields = ['motorista','data_saida']
+    # search_fields = ['modalidade','data_saida']  
+    
   
 
     # listar Rides  -> request GET
