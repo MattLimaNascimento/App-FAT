@@ -2,46 +2,72 @@ import React, { useEffect, useState } from 'react';
 import './SCSS/anuncios.css';
 import axios from 'axios';
 
-const Anuncios_Caronas = () => {
+const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
     const [itens, setitem] = useState([]);
+
+    const fetchCaronas = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/anuncios/rides/`);
+            setitem(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    ButtonClick ? (fetchCaronas(), funcClick(false)) : (null);
+
+    new Swiper(".slide-content", {
+        slidesPerView: 3,
+        spaceBetween: 25,
+        loop: true,
+        centerSlide: 'true',
+        fade: 'true',
+        grabCursor: 'true',
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            dynamicBullets: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            520: {
+                slidesPerView: 2,
+            },
+            950: {
+                slidesPerView: 3,
+            },
+        },
+    });
+
+    const Register_carona = (id) => {
+        const quest = window.confirm('Deseja Marcar esta carona?');
+        const data = {
+            "id": sessionStorage.getItem("id"),
+            "Tipo": "Adicionar"
+        }
+        const Send = async () => {
+            await axios.patch(`http://127.0.0.1:8000/anuncios/rides/passenger/${id}/`, data, {
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
+            .then(res => console.log(res))
+            .catch(e => console.error(e))
+        }
+
+        quest ? (
+            console.log(data.id),
+            Send()
+        ) : (null)
+    }
+
     useEffect(() => {
-        new Swiper(".slide-content", {
-            slidesPerView: 3,
-            spaceBetween: 25,
-            loop: true,
-            centerSlide: 'true',
-            fade: 'true',
-            grabCursor: 'true',
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                dynamicBullets: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                520: {
-                    slidesPerView: 2,
-                },
-                950: {
-                    slidesPerView: 3,
-                },
-            },
-        });
-        const fetchCaronas = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/anuncios/rides/`);
-                setitem(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-    
         fetchCaronas();
     }, []);
 
@@ -56,13 +82,17 @@ const Anuncios_Caronas = () => {
                         {itens.map((item, index) => {
                             const botoes = [];
 
-                            for (let i = 1; i <= item.vagas; i++) {
-                                botoes.push(
-                                    <button className="button" key={i}>
-                                        {i === 1 ? 'Frente' : 'Atrás'}
-                                    </button>
-                                );
+                            // Verifica se a chave "name" do sessionStorage é diferente de item.nome
+                            if (sessionStorage.getItem('name') !== item.motorista.name) {
+                                for (let i = 1; i <= item.vagas; i++) {
+                                    botoes.push(
+                                        <button className="button" onClick={() => Register_carona(item.id)} key={i}>
+                                            {i === 1 ? 'Frente' : 'Atrás'}
+                                        </button>
+                                    );
+                                }
                             }
+
                             return (
                                 <div className="card swiper-slide" key={index}>
                                     <div className="image-content">
@@ -72,7 +102,7 @@ const Anuncios_Caronas = () => {
                                         </div>
                                     </div>
                                     <div className="card-content">
-                                        <h2 className="name">{item.nome}</h2>
+                                        <h2 className="name">{item.motorista.name}</h2>
                                         <h2 className="description">
                                             Veículo: <span className="veiculo">{item.veiculo}</span><br />
                                             Origem: <span className="origem">{item.origem}</span><br />
@@ -80,7 +110,7 @@ const Anuncios_Caronas = () => {
                                             Horário: <span className="horario">{item.hora_saida.slice(0, -3)}</span><br />
                                             Preço: R$ <span className="preco">{item.preço}</span><br />
                                         </h2>
-                                        {item.veiculo === 'moto' ? (
+                                        {item.veiculo === 'Moto' ? (
                                             <button className="button">Garupa</button>
                                         ) : (
                                             <div>{botoes}</div>
@@ -97,6 +127,7 @@ const Anuncios_Caronas = () => {
             </div>
         </div>
     );
+
 }
 
 export default Anuncios_Caronas;

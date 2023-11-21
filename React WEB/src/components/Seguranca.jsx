@@ -15,7 +15,7 @@ const SegurancaMenu = styled.div`
         justify-content: center;
         align-items: center;
         position: absolute;
-        top: 0;
+        top: -50px;
         left: 0;
         height: 100%;
         width: 100%;
@@ -39,7 +39,7 @@ const Menu2_Style = styled.div`
 const Container_Style = styled.div`
     position: absolute;
     top: 55%;
-    left: 400px;
+    left: 30%;
     transform: translate(-50%,-50%);
     width: 500px;
     height: 600px;
@@ -299,18 +299,21 @@ const Caronas = styled.div`
     transform: translate(-50%,-50%);
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-    right: -300px;
+    right: 0;
     width: 700px;
     height: 800px;
     background-color: #fff;
     padding: 20px;
-    gap: 40px;
     overflow-y: auto; /* Adicione barra de rolagem quando necessário */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-wrap: wrap;
+    padding-top: 260px;
+    h1 {
+        position: absolute;
+        top: 25px;
+    }
     /* Estilizando a barra de rolagem */
     scrollbar-color: #2196F3 #efefef; /* Firefox */
     scrollbar-width: thin; /* Firefox */
@@ -422,7 +425,9 @@ const Container_Cards = styled.div`
     gap: 40px; /* Adicione barra de rolagem quando necessário */
     display: flex;
     flex-wrap: wrap;
-    padding-top: 30px;
+    position: absolute;
+    top: 120px;
+    left: 30px;
 `
 const Container_buttons = styled.div`
     display: flex;

@@ -19,29 +19,32 @@ const Main = styled.main`
 const Pag_principal = () => {
     const [ChangeSecurity, setChangeSecurity] = useState(false);
     const history = useNavigate();
+    const UserData = {};
+    const [ClickButton, setClickButton] = useState(false);
     useEffect(() => {
         if (sessionStorage.length === 0) {
             history('/'); // Substitua pelo caminho real da sua tela de logado
         }
     }, []);
 
-    const UserData = {};
 
     for (let i = 0; i < sessionStorage.length; i++) {
         const chave = sessionStorage.key(i);
         const valor = sessionStorage.getItem(chave);
         UserData[chave] = valor;
     }
+
+
     return (
         <>
             <Header >
                 <B_car_fat />
                 <Menus />
-                <Menu_Princ tela={setChangeSecurity} />
+                <Menu_Princ tela={setChangeSecurity} ButtonClick={setClickButton} />
                 <User_Imag Image={UserData.diretorio} Nome={UserData.name} Email={UserData.email}/>
             </Header>
             <Main>
-                <Menu1 Change={setChangeSecurity} tela={ChangeSecurity} />
+                <Menu1 Change={setChangeSecurity} tela={ChangeSecurity} ClickButton={ClickButton} funcClick = {setClickButton} />
                 <Menu2 Change={setChangeSecurity} activateTela={ChangeSecurity} />
             </Main>
         </>

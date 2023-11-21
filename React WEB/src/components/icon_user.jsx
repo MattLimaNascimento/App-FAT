@@ -23,7 +23,7 @@ const User_Imag = ({ Image, Nome, Email }) => {
             history('/');
         }
     }
-
+    
     return (
         <div className="container">
             <div className={style.action_user}>
