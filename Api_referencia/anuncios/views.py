@@ -17,7 +17,6 @@ from django.http import Http404
 class RideFilter(filters.FilterSet):
     hora_saida = filters.CharFilter(lookup_expr='icontains')
     
-
     class Meta:
         model = Ride
         fields = ['hora_saida']
@@ -42,9 +41,6 @@ class RidesAPIView(generics.ListCreateAPIView):
     filterset_class = RideFilter
     
     
-    
-  
-
     # listar Rides  -> request GET
 
     def get_queryset(self):
