@@ -58,6 +58,7 @@ class RideDetailAPIView(generics.GenericAPIView,
 
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
+   
 
     lookup_field = 'pk'
 

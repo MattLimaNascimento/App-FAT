@@ -49,15 +49,6 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-# INTERNAL_IPS = [
-#     # Adicione o seu IP aqui para ativar a toolbar
-#     '127.0.0.1',
-# ]
-
-
-# DEBUG_TOOLBAR_CONFIG = {
-#     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG and request.META['REMOTE_ADDR'] in INTERNAL_IPS,
-# }
 
 ROOT_URLCONF = 'djoserauthapi.urls'
 
@@ -156,7 +147,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
-     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 5
 }
 
 # JWT Settings
