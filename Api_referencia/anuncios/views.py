@@ -3,11 +3,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework import status
+from  rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 from anuncios.models import Ride
 from .serializers import RidesSerializer, UserRidesSerializer
 from accounts.models import User
 from django.http import Http404
+
+
+
 
 
 
@@ -25,6 +31,10 @@ class RidesAPIView(generics.ListCreateAPIView):
     """
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['motorista']
+    search_fields = ['motorista']  
+  
 
     # listar Rides  -> request GET
 

@@ -33,7 +33,7 @@ class RidesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ride
-        fields = ['id', 'motorista', 'motorista_id', 'passageiros_id', 'passageiros', 'data_publicaçao',
+        fields = ['id', 'motorista','vagas', 'motorista_id', 'passageiros_id', 'passageiros', 'data_publicaçao',
                   'data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
 
     def to_representation(self, instance):
@@ -79,4 +79,4 @@ class UserRidesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Ride
-        fields = ['id','motorista', 'passageiros', 'data_publicaçao','data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+        fields = ['id','motorista','vagas', 'passageiros', 'data_publicaçao','data_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
