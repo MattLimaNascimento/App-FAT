@@ -87,7 +87,7 @@ class ManagePassenger(APIView):
 
         serializer = RidesSerializer(ride)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class UserRidesListView(generics.ListAPIView):
      
     serializer_class = UserRidesSerializer
@@ -95,5 +95,10 @@ class UserRidesListView(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         return Ride.objects.filter(passageiros__id=user_id)
-            
 
+class UserRidesAPIView(generics.ListAPIView):
+    serializer_class = UserRidesSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return Ride.objects.filter(motorista__id=user_id)

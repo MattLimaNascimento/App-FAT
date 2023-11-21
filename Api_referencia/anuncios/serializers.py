@@ -35,7 +35,7 @@ class RidesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ride
         fields = ['id', 'motorista', 'motorista_id', 'passageiros_id', 'passageiros', 'data_publicaçao',
-                  'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']
+                  'hora_saida', 'origem','vagas', 'destino', 'preço', 'veiculo', 'modalidade']
 
     def to_representation(self, instance):
         # Remove os campos de ID da representação da API
@@ -67,7 +67,7 @@ class RidesSerializer(serializers.ModelSerializer):
 class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'diretorio']
+        fields = ['id', 'diretorio',"name"]
 
 class UserRidesSerializer(serializers.ModelSerializer):
     motorista = CarregaFotoMotoristaSerializer(read_only=True)
@@ -75,10 +75,10 @@ class UserRidesSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         motorista_data = representation['motorista']
-        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio']]
+        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio'], motorista_data['name'] ]
         return representation
     
     class Meta:
         model = Ride
-        fields = ['motorista', 'passageiros', 'data_publicaçao',
+        fields = ['id','motorista', 'passageiros', 'data_publicaçao','vagas',
                   'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']

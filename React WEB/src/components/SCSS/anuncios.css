@@ -22,7 +22,7 @@
 .containerAnuncios_caronas {
   position: absolute;
   width: 100%;
-  top: 65%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

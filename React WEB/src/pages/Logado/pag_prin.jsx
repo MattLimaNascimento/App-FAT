@@ -11,6 +11,7 @@ import styled from 'styled-components'
 
 const Main = styled.main`
     position: relative;
+    height: 1200px;
     width: 100%;
     overflow: hidden;
     display: flex;

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SCSS/anuncios.css';
+import axios from 'axios';
 
 const Anuncios_Caronas = () => {
-
+    const [itens, setitem] = useState([]);
     useEffect(() => {
         new Swiper(".slide-content", {
             slidesPerView: 3,
@@ -32,17 +33,17 @@ const Anuncios_Caronas = () => {
                 },
             },
         });
+        const fetchCaronas = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/anuncios/rides/`);
+                setitem(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchCaronas();
     }, []);
-
-    const itens = [
-        {
-            imagem: '../../Public/Imagens/profile-pic.png', nome: 'Matheus', veiculo: 'Carro', origem: 'Uerj', destino: 'graal', horario: '12:30', preco: 3, vagas: 3
-        },
-        {
-            imagem: '../../Public/Imagens/profile-pic (2).png', nome: 'Pedro', veiculo: 'Carro', origem: 'Uerj', destino: 'graal', horario: '12:30', preco: 3, vagas: 1
-        }
-    ]
-
 
     return (
         <div className={'containerAnuncios_caronas'}>
@@ -62,13 +63,12 @@ const Anuncios_Caronas = () => {
                                     </button>
                                 );
                             }
-
                             return (
                                 <div className="card swiper-slide" key={index}>
                                     <div className="image-content">
                                         <span className="overlay"></span>
                                         <div className="card-image">
-                                            <img src={item.imagem} alt="" className="card-img" />
+                                            <img src={item.motorista.diretorio} alt="" className="card-img" />
                                         </div>
                                     </div>
                                     <div className="card-content">
@@ -77,8 +77,8 @@ const Anuncios_Caronas = () => {
                                             Veículo: <span className="veiculo">{item.veiculo}</span><br />
                                             Origem: <span className="origem">{item.origem}</span><br />
                                             Destino: <span className="destino">{item.destino}</span><br />
-                                            Horário: <span className="horario">{item.horario}</span><br />
-                                            Preço: R$ <span className="preco">{item.preco}</span><br />
+                                            Horário: <span className="horario">{item.hora_saida.slice(0, -3)}</span><br />
+                                            Preço: R$ <span className="preco">{item.preço}</span><br />
                                         </h2>
                                         {item.veiculo === 'moto' ? (
                                             <button className="button">Garupa</button>
