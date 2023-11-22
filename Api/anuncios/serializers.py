@@ -69,16 +69,20 @@ class CarregaFotoMotoristaSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'diretorio',"name"]
 
+class UserPassageiroSerializer(CarregaFotoMotoristaSerializer):
+    pass
+
 class UserRidesSerializer(serializers.ModelSerializer):
     motorista = CarregaFotoMotoristaSerializer(read_only=True)
+    passageiros = UserPassageiroSerializer(many=True, read_only=True)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         motorista_data = representation['motorista']
-        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio'], motorista_data['name'] ]
+        representation['motorista'] = [motorista_data['id'], motorista_data['diretorio'], motorista_data['name']]
         return representation
-    
+
     class Meta:
         model = Ride
-        fields = ['id','motorista', 'passageiros', 'data_publicaçao','vagas',
+        fields = ['id', 'motorista', 'passageiros', 'data_publicaçao', 'vagas',
                   'hora_saida', 'origem', 'destino', 'preço', 'veiculo', 'modalidade']

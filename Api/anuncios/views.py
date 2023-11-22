@@ -11,7 +11,8 @@ from django.http import Http404
 
 
 
-class RidesAPIView(generics.ListCreateAPIView):
+class RidesAPIView(generics.ListCreateAPIView,
+                   mixins.UpdateModelMixin):
     """
     Listar Rides mediante filtro
     Ref POST : (RAW)
@@ -34,6 +35,10 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+    
 
 class RideDetailAPIView(generics.GenericAPIView,
                         mixins.RetrieveModelMixin,

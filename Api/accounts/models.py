@@ -10,6 +10,7 @@ def upload_path(instance,filename):
     return filename
 
 class UserManager(BaseUserManager):
+
     def create_user(self, email, name, 
                     diretorio,
                     placa_carro,
@@ -18,9 +19,7 @@ class UserManager(BaseUserManager):
         """
         Creates and saves a User with the given email, name and password.
         """
-        # if(cnh != None):
-        #     if len(str(cnh)) != 11:
-        #         raise serializers.ValidationError({'cnh': 'CNH deve conter 11 dígitos!'})
+
         if not email:
             raise ValueError('User must have an email address')
         cnh_valido(cnh)

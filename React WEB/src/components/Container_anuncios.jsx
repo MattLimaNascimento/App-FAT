@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
     const [itens, setitem] = useState([]);
+    const [HaveCarona, setHaveCarona] = useState()
 
     const fetchCaronas = async () => {
         try {
@@ -57,8 +58,11 @@ const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
                     "Content-Type": 'application/json'
                 }
             })
-            .then(res => console.log(res))
-            .catch(e => console.error(e))
+                .then(res => {
+                    alert('Carona Reservada com sucesso!');
+                    window.location.reload();
+                })
+                .catch(e => console.error(e))
         }
 
         quest ? (
@@ -67,8 +71,24 @@ const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
         ) : (null)
     }
 
+    const HaveCaronas = () => {
+        const verify = async () => {
+            try {
+                const res = await axios.get(`http://127.0.0.1:8000/anuncios/user-rides/${sessionStorage.getItem('id')}/`);
+                if (res.data[0] !== undefined) {
+                    setHaveCarona(res.data[0]);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        verify();
+    }
+
     useEffect(() => {
         fetchCaronas();
+        HaveCaronas();
     }, []);
 
     return (
@@ -83,16 +103,13 @@ const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
                             const botoes = [];
 
                             // Verifica se a chave "name" do sessionStorage é diferente de item.nome
-                            if (sessionStorage.getItem('name') !== item.motorista.name) {
-                                for (let i = 1; i <= item.vagas; i++) {
-                                    botoes.push(
-                                        <button className="button" onClick={() => Register_carona(item.id)} key={i}>
-                                            {i === 1 ? 'Frente' : 'Atrás'}
-                                        </button>
-                                    );
-                                }
+                            for (let i = 1; i <= item.vagas; i++) {
+                                botoes.push(
+                                    <button className="button" onClick={() => Register_carona(item.id)} key={i}>
+                                        {i === 1 ? 'Frente' : 'Atrás'}
+                                    </button>
+                                );
                             }
-
                             return (
                                 <div className="card swiper-slide" key={index}>
                                     <div className="image-content">
@@ -110,11 +127,16 @@ const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
                                             Horário: <span className="horario">{item.hora_saida.slice(0, -3)}</span><br />
                                             Preço: R$ <span className="preco">{item.preço}</span><br />
                                         </h2>
-                                        {item.veiculo === 'Moto' ? (
-                                            <button className="button">Garupa</button>
-                                        ) : (
-                                            <div>{botoes}</div>
+                                        {sessionStorage.getItem('name') !== item.motorista.name && (
+                                            item.veiculo === 'Moto' ? (
+                                                HaveCarona == undefined ? (
+                                                    <button className="button" onClick={() => Register_carona(item.id)}>Garupa</button>
+                                                ) : null
+                                            ) : (
+                                                <div>{HaveCarona == undefined ? botoes : null}</div>
+                                            )
                                         )}
+
                                     </div>
                                 </div>
                             );
@@ -127,7 +149,6 @@ const Anuncios_Caronas = ({ ButtonClick, funcClick }) => {
             </div>
         </div>
     );
-
 }
 
 export default Anuncios_Caronas;
