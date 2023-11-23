@@ -8,6 +8,8 @@
 
 .Btn_refresh {
     display: flex;
+    position: absolute;
+    left: 100px;
     align-items: center;
     border: none;
     background-color: #2196F3;
@@ -20,4 +22,10 @@
     display: flex;
     width: 32px;
     height: 32px;
+}
+
+@media screen and (max-width: 430px) {
+    .carona_fat {
+        font-size: small;
+    }
 }

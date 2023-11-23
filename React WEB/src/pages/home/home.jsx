@@ -85,14 +85,12 @@ const Home = () => {
 
 
     return (
-
         <>
             <Header>
                 <B_car_fat />
                 <B_Entrar Pop_up={pop_pup} />
             </Header>
             <main>
-                <Logo />
                 <Modal Log_func={login} isOpen={openModal} SetModal={setOpenModal} Reg_func={registro} />
             </main>
         </>
