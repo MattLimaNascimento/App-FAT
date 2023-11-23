@@ -209,11 +209,10 @@ CELERY_RESULT_BACKEND = 'django-db'
 #CEKLERY BEAT 
 CELERY_BEAT_SCHEDULERS = 'django_celery_beat.schedulers:DatabaseScheduler' 
 
-# ANYEMAIL
+# Configuração para o SendGrid
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 ANYMAIL = {
-    "MAILGUN_API_KEY": "<your Mailgun key>",
+    "SENDGRID_API_KEY": "sua-chave-do-sendgrid",
 }
-EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  
-DEFAULT_FROM_EMAIL = "you@example.com"
 
 

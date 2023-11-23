@@ -1,0 +1,10 @@
+Olá!
+
+Uma nova corrida foi postada. Aqui estão os detalhes:
+
+Origem: {{ ride.origem }}
+Destino: {{ ride.destino }}
+Data e Hora: {{ ride.datetime }}
+Preço : {{ride.preco}}
+
+Obrigado!
