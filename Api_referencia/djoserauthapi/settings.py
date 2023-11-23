@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django_filters',
     'celery',
     'django_celery_beat',
-    'django_celery_results'
+    'django_celery_results',
+     "anymail"
     
 ]
 
@@ -207,5 +208,12 @@ CELERY_RESULT_BACKEND = 'django-db'
 
 #CEKLERY BEAT 
 CELERY_BEAT_SCHEDULERS = 'django_celery_beat.schedulers:DatabaseScheduler' 
+
+# ANYEMAIL
+ANYMAIL = {
+    "MAILGUN_API_KEY": "<your Mailgun key>",
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  
+DEFAULT_FROM_EMAIL = "you@example.com"
 
 
