@@ -13,7 +13,7 @@ def send_ride_notification_email(sender, instance, created, **kwargs):
         # Envie um e-mail de notificação
         subject = 'Nova corrida'
         message = render_to_string('ride_notification_email.txt', {'ride': instance})
-        from_email = 'seu@email.com'
+        from_email = 'pedro.souza@discentes.fat.uerj.br'
         recipient_list = ['destinatario@email.com']
 
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
