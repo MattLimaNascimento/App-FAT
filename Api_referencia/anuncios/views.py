@@ -11,7 +11,8 @@ from anuncios.models import Ride
 from .serializers import RidesSerializer, UserRidesSerializer
 from accounts.models import User
 from django.http import Http404, HttpResponse
-from .tasks import test_func
+from datetime import datetime
+
 
 
 
@@ -25,7 +26,7 @@ class RideFilter(filters.FilterSet):
 
 class RidesAPIView(generics.ListCreateAPIView):
     """
-    Listar Rides mediante filtro
+    Listar Rides mediante filtro que traz o horario de saida menor do que o horario atual
     Ref POST : (RAW)
     {
     "modalidade": "CARONA",
@@ -46,6 +47,7 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         dicionario_request = self.request.GET.dict()
+        dicionario_request['hora_saida__gt']= datetime.now()
         return self.queryset.filter(**dicionario_request)
 
     def post(self, request, *args, **kwargs):
@@ -113,8 +115,6 @@ class UserRidesListView(generics.ListAPIView):
         user_id = self.kwargs['user_id']
         return Ride.objects.filter(passageiros__id=user_id)
     
-def teste(request):
-    test_func.delay()
-    return HttpResponse('Feito')
+
             
 
