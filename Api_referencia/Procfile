@@ -1,1 +1,1 @@
-web gunicorn djoserauthapi.wsgi:apllication --log-file -
+web gunicorn djoserauthapi.wsgi:application --log-file -
