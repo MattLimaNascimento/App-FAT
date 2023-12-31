@@ -22,6 +22,18 @@ const SegurancaMenu = styled.div`
         transition: transform 1s ease, height .2s ease;
         transform: ${prop => (prop.tela ? 'translateY(0)' : 'translateY(-200%)')};
     }
+    @media screen and (max-width: 870px) {
+        .seguranca{
+            width: 140px;
+            left: 32%;
+            top: -25%;
+        }
+    }
+    @media screen and (min-width: 871px) and (max-width:1400px) {
+        .seguranca {
+            top: -18%;
+        }
+    }
 `
 const Menu2_Style = styled.div`
     transform: ${prop => prop.tela ? 'translateX(0)' : 'translateX(100%)'};
@@ -34,6 +46,10 @@ const Menu2_Style = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
+    @media screen and (max-width: 870px) {
+        left: 50px;
+        top: -10px;
+    }
 `;
 
 const Container_Style = styled.div`
@@ -110,7 +126,6 @@ input:focus~label,
     position: absolute;
     margin-top: 1em;
 }
-
 .container.left {
     position: absolute;
     width: 100%;
@@ -124,7 +139,6 @@ input:focus~label,
     flex-direction: column;
     z-index: 2;
 }
-
 .select-box .options-container {
     background: #2f3640;
     color: #f5f6fa;
@@ -136,7 +150,6 @@ input:focus~label,
     overflow: hidden;
     order: 1;
 }
-
 .form-box.anuncio-caronas h4 {
     letter-spacing: -.4px;
 }
@@ -150,11 +163,9 @@ input:focus~label,
     transition: .5s;
     order: 0;
 }
-
 .selected:hover {
     background-color: #2196F3;
 }
-
 .selected::after {
     content: "";
     background: url("/Public/Imagens/down-arrow2-svgrepo-com\ \(1\).svg");
@@ -166,29 +177,24 @@ input:focus~label,
     top: 5px;
     transition: all .4s;
 }
-
 .select-box .options-container.active {
     max-height: 240px;
     opacity: 1;
     overflow-y: scroll;
 }
-
 .select-box .options-container.active+.selected::after {
     transform: rotateX(180deg);
     top: -6px;
 }
-
 .select-box .options-container::-webkit-scrollbar {
     width: 8px;
     background: #0d141f;
     border-radius: 0 8px 8px 0;
 }
-
 .select-box .options-container::-webkit-scrollbar-thumb {
     background: #fff;
     border-radius: 0 8px 8px 0;
 }
-
 .select-box .option,
 .selected {
     padding: 12px 24px;
@@ -276,6 +282,42 @@ input:focus~label,
     opacity: 1;
     visibility: visible;
 }
+@media screen and (max-width: 464px) {
+    top: 36%;
+    left: 37%;
+    width: 90%;
+    .container.right {
+        top: 350px;
+        width: 100%;
+        left: 40px;
+    }
+    .container.left {
+        width: 180%;
+    }
+}
+@media screen and (min-width: 465px) and (max-width: 870px) {
+    top: 36%;
+    left: 43%;
+    width: 90%;
+    
+    .container.right {
+        top: 350px;
+        width: 100%;
+        left: 40px;
+    }
+    .container.left {
+        width: 180%;
+    }
+
+    .container_menu2 {
+        left: 30%;
+    }
+}
+@media screen and (min-width: 871px) and (max-width: 1000px) {
+    top: 35%;
+    left: 50%;
+    width: 90%;
+}
 `
 const Input = styled.input`
     text-align: center;
@@ -292,14 +334,22 @@ const Tituto = styled.h3`
     transform: translate(-50%,-50%);
     z-index: 999;
     font-size: x-large;
+    @media screen and (max-width: 870px) {
+        top: 15%;
+        left: 45%;
+    }
+    @media screen and (min-width: 871px) and (max-width: 1000px) {
+        top: 14%;
+        left: 50%;
+    }
 `
 const Caronas = styled.div`
     position: absolute;
-    top: 750px;
+    top: 60%;
+    left: 70%;
     transform: translate(-50%,-50%);
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-    right: 0;
     width: 700px;
     height: 800px;
     background-color: #fff;
@@ -419,7 +469,25 @@ const Caronas = styled.div`
             background: #265DF2;
         }
     }
-
+    @media screen and (max-width: 464px) {
+        top: 75%;
+        left: 37%;
+        width: 90%;
+    }
+    @media screen and (min-width: 465px) and (max-width: 870px) {
+        top: 75%;
+        left: 43%;
+        width: 90%;
+    }
+    @media screen and (min-width: 871px) and (max-width: 1000px) {
+        top: 75%;
+        left: 50%;
+        width: 90%;
+    }
+    @media screen and (min-width: 1000px) and (max-width: 1520px) {
+        left: 80%;
+        width: 35%;
+    }
 `
 const Container_Cards = styled.div`
     gap: 40px; /* Adicione barra de rolagem quando necessário */
@@ -427,7 +495,15 @@ const Container_Cards = styled.div`
     flex-wrap: wrap;
     position: absolute;
     top: 120px;
-    left: 30px;
+    left: 50%;
+    transform: translate(-50%);
+
+    @media screen and (max-width: 399px) {
+        left: 15px;
+    }
+    @media screen and (min-width: 400) and (max-width: 870px) {
+        left: 30px;
+    }
 `
 const Container_buttons = styled.div`
     display: flex;
@@ -735,16 +811,6 @@ const Menu2 = ({ activateTela, Change }) => {
         fetchCaronas();
     }, []);
 
-    // const inputs = [
-    //     {}
-    // ]
-    // const inputs2 = [
-    //     {}
-    // ]
-    // const inputs3 = [
-    //     {}
-    // ]
-
     const Submit = async (e) => {
         e.preventDefault();
         if (timeSegunda == '00:00') {
@@ -810,8 +876,8 @@ const Menu2 = ({ activateTela, Change }) => {
                 "Content-Type": 'application/json'
             }
         })
-        .then(res => {console.log(res); fetchCaronas(); setmodal(false)})
-        .catch(err => console.error(err));
+            .then(res => { console.log(res); fetchCaronas(); setmodal(false) })
+            .catch(err => console.error(err));
 
     }
 

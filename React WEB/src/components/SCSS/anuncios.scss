@@ -22,7 +22,7 @@
 .containerAnuncios_caronas {
     position: absolute;
     width: 100%;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -159,4 +159,11 @@
 
 .swiper-pagination-bullet-active {
     background-color: #2196F3;
+}
+
+/* Celular */
+@media screen and (max-width: 870px) {
+    .containerAnuncios_caronas{
+        top: 32%;
+    }
 }

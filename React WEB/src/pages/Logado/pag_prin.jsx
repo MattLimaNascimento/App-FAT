@@ -5,7 +5,7 @@ import Menu_Princ from '../../components/Menu_princ';
 import User_Imag from '../../components/icon_user';
 import Menus from '../../components/Menus';
 import Menu1 from '../../components/Menu1';
-import Menu2 from '../../components/seguranca';
+import Menu2 from '../../components/Seguranca';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -15,6 +15,9 @@ const Main = styled.main`
     width: 100%;
     overflow: hidden;
     display: flex;
+    @media screen and (max-width: 1000px) {
+        height: 1900px;
+    }
 `
 const Pag_principal = () => {
     const [ChangeSecurity, setChangeSecurity] = useState(false);

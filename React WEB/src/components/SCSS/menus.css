@@ -6,8 +6,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
+  visibility: visible;
 }
 
 .nav {
@@ -19,6 +19,7 @@
   padding: 0 20px;
   border-radius: 40px;
   box-shadow: 0 10px 40px rgba(159, 162, 177, 0.8);
+  cursor: pointer;
 }
 
 .nav-item {
@@ -61,4 +62,10 @@
   height: 5px;
   z-index: 1;
   border-radius: 8px 8px 0 0;
+}
+
+@media screen and (max-width: 870px) {
+  .menus {
+    top: 170px;
+  }
 }/*# sourceMappingURL=menus.css.map */

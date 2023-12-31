@@ -24,8 +24,11 @@
     height: 32px;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 870px) {
     .carona_fat {
-        font-size: small;
+        font-size: x-large;
+    }
+    .Btn_refresh {
+        left: 50px;
     }
 }

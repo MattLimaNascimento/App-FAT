@@ -20,3 +20,10 @@
         background-color: #2196F3;
     }
 }
+
+@media screen and (max-width: 510px) {
+    .btn_login{
+        width: 80px;
+        right: 40px;
+    }
+}

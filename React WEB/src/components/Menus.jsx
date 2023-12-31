@@ -3,9 +3,7 @@ import './SCSS/menus.scss';
 
 const Menus = ({ tela }) => {
     const [Change, setChange] = useState('Home');
-    const items = [
-        { id: 'tela1_cel' }
-    ]
+
     const indicator = document.querySelector('.nav-indicator');
     const itens = document.querySelectorAll('.nav-item');
 
@@ -28,11 +26,18 @@ const Menus = ({ tela }) => {
         item.addEventListener('click', (e) => { handleIndicator(e.target) });
         item.classList.contains('is-active') && handleIndicator(item);
     });
+
     return (
         <div className="menus">
             <nav className="nav">
-                <a onClick={() => setChange('Home')} className={`nav-item ${Change == 'Home' ? 'is-active' : ''}`} id="tela1_cel" active-color="#1976D2">Home</a>
-                <a onClick={() => setChange('Motoristas')} className={`nav-item ${Change == 'Motoristas' ? 'is-active' : ''}`} id="tela2_cel" active-color="#2196F3">Motoristas</a>
+                <a onClick={() => {
+                    document.getElementById('tela1').click();
+                    setChange('Home')
+                }} className={`nav-item ${Change == 'Home' ? 'is-active' : ''}`} id="tela1_cel" active-color="#1976D2">Home</a>
+                <a onClick={() => {
+                    document.getElementById('tela2').click();
+                    setChange('Motoristas')
+                }} className={`nav-item ${Change == 'Motoristas' ? 'is-active' : ''}`} id="tela2_cel" active-color="#2196F3">Motoristas</a>
                 <span className="nav-indicator"></span>
             </nav>
         </div>

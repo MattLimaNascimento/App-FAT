@@ -13,6 +13,8 @@ html *::after {
 }
 
 .menu {
+    opacity: 0;
+    visibility: hidden;
     margin: 0;
     width: 46em;
     display: flex;
@@ -21,6 +23,7 @@ html *::after {
     position: relative;
     align-items: center;
     padding: 0 1.9em 1em;
+    left: 300px;
     justify-content: center;
     background-color: #2196F3;
     border-radius: 1em 1em 4.5em 4.5em;
@@ -96,7 +99,7 @@ html *::after {
 }
 
 .menu__text {
-    left: 2.5em;
+    left: 0em;
     font-size: 25px;
     position: absolute;
     text-transform: capitalize;
@@ -195,5 +198,12 @@ html *::after {
 
     100% {
         transform: translate3d(0, 0, 0);
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .menu {
+        display: none;
+        opacity: 0;
     }
 }

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-
+.container {
+    padding-left: 50%;
+}
 .action_user {
     display: flex;
     flex-direction: column;
@@ -135,5 +137,17 @@
     &.active {
         visibility: visible;
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 645px) {
+    .container {
+        padding-left: 250px;
+    }
+}
+
+@media screen and (min-width: 646px) {
+    .container {
+        padding-left: 570px;
     }
 }

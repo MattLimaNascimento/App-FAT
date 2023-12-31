@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import image from '../../Public/Imagens/profile-pic.png';
 import style from './SCSS/User_img.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -336,7 +335,7 @@ const User_Imag = ({ Image, Nome, Email }) => {
 
     return (
         <>
-            <div className="container">
+            <div className={style.container} >
                 <div className={style.action_user}>
                     <div onClick={() => setactiveUserInfos(!activeUserInfos)} className={style.profile_user} id="profile">
                         {Image ? <img src={Image} alt="profile-img" /> : null}
@@ -412,7 +411,6 @@ const User_Imag = ({ Image, Nome, Email }) => {
                     ))}
                 </Modal_PessoasConfirmadas>
             ) : (
-                // Se DataInfos estiver vazio, renderize nada ou qualquer conteúdo alternativo desejado
                 <>
                 </>
             )}

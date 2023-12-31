@@ -9,7 +9,7 @@ input:-webkit-autofill:focus {
 
 .container_wrapper {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
@@ -63,6 +63,11 @@ input:-webkit-autofill:focus {
   transition: transform 0.5s ease, height 0.2s ease;
   z-index: 2;
 }
+@media screen and (max-width: 870px) {
+  .wrapper3 {
+    width: 350px;
+  }
+}
 
 .icon_close {
   position: absolute;
@@ -83,4 +88,23 @@ input:-webkit-autofill:focus {
 }
 .icon_close:hover {
   background-color: #1976D2;
+}
+
+@media screen and (width < 430px) {
+  .container_wrapper {
+    top: 70%;
+    width: 90%;
+    left: 50%;
+  }
+  .wrapper {
+    width: 100%;
+  }
+}
+@media screen and (height < 500px) {
+  .wrapper {
+    position: absolute;
+    left: 25%;
+    transition: transform 0.5s ease, height 0.2s ease;
+    bottom: -240px;
+  }
 }/*# sourceMappingURL=Modal.module.css.map */
